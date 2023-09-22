@@ -9,26 +9,33 @@ else
 
   -- LSP ZERO --
   local lsp = require "lsp-zero"
+  local coq = require "coq"
   lsp.preset {}
   lsp.on_attach(function(client, bufnr) lsp.default_keymaps { buffer = bufnr } end)
   -- (Optional) Configure lua language server for neovim
 
+  require("neodev").setup {
+    -- add any options here, or leave empty to use the default settings
+  }
+
   require("mason-lspconfig").setup {
     ensure_installed = { "lua_ls", "rust_analyzer" },
   }
-  require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-  require("lspconfig").sourcekit.setup {
+  local lspconfig = require "lspconfig"
+  lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+  lspconfig.gopls.setup(coq.lsp_ensure_capabilities())
+  lspconfig.sourcekit.setup {
     cmd = { "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp" },
-    single_file_support = true
+    single_file_support = true,
   }
-  require("lspconfig").tsserver.setup {
+  lspconfig.tsserver.setup {
     settings = {
       completions = {
         completeFunctionCalls = true,
       },
     },
   }
-  require("lspconfig").yamlls.setup {
+  lspconfig.yamlls.setup {
     settings = {
       yaml = {
         format = {
@@ -64,13 +71,9 @@ else
   lsp.setup()
 
   require "config.later"
-
   require("mini.surround").setup {}
 
   local telescope = require "telescope"
-  telescope.load_extension "flutter"
   telescope.load_extension "repo"
-  -- telescope.load_extension "hop"
-  -- telescope.load_extension "gh"
   telescope.load_extension "project"
 end

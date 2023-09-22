@@ -3,6 +3,9 @@ std = {
     "vim",
     "print",
     "require",
+    "pairs",
+    "tostring",
+    "type",
   },
-  max_line_length = 180
+  max_line_length = 180,
 }

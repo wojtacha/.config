@@ -13,6 +13,7 @@ return {
       -- Autocompletion
       {
         "hrsh7th/nvim-cmp",
+	event = "VeryLazy",
         config = function()
           local cmp = require "cmp"
           cmp.setup {
@@ -57,11 +58,11 @@ return {
       { "hrsh7th/cmp-path" }, -- Optional
       { "saadparwaiz1/cmp_luasnip" }, -- Optional
       { "hrsh7th/cmp-nvim-lua" }, -- Optional
-
+      { "ms-jpq/coq_nvim", branch = "coq" },
       -- Snippets
       { "L3MON4D3/LuaSnip" }, -- Required
       { "rafamadriz/friendly-snippets" }, -- Optional
     },
   },
-  { "mhartington/formatter.nvim" },
+  { "mhartington/formatter.nvim", cmd = "Format" },
 }

@@ -3,5 +3,5 @@ local treesitter = {
   build = function() require("nvim-treesitter.install").update { with_sync = true } end,
 }
 
-local playground = { "nvim-treesitter/playground" }
+local playground = { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" }
 return { treesitter, playground }

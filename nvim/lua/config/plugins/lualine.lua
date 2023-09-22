@@ -2,7 +2,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons"},
-  },
+  }
   -- {
   --   "kdheepak/tabline.nvim",
   --   -- Jakby mnie cos natchnelo
