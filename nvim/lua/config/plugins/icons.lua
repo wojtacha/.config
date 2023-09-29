@@ -22,8 +22,13 @@ return {
           cterm_color = "65",
           name = "Gradle",
         },
+        go = {
+          icon = "󰟓 ",
+          color = "#2740E9",
+          cterm_color = "65",
+          name = "Go",
+        },
       }
-
     end,
   },
 }

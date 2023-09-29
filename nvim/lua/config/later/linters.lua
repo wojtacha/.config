@@ -1,4 +1,3 @@
-if not vim.g.vscode then
 require('lint').linters_by_ft = {
   yaml = {'actionlint'},
   lua = {'luacheck'},
@@ -10,4 +9,3 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     require("lint").try_lint()
   end,
 })
-end

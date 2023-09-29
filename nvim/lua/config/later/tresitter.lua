@@ -1,4 +1,3 @@
-if not vim.g.vscode then
 require("nvim-treesitter.configs").setup {
   ensure_installed = {
     "c",
@@ -14,8 +13,9 @@ require("nvim-treesitter.configs").setup {
     "kotlin",
     "python",
     "bash",
+    "regex",
   },
-
+  modules = {},
   sync_install = false,
   auto_install = true,
   playground = {
@@ -36,7 +36,7 @@ require("nvim-treesitter.configs").setup {
       show_help = "?",
     },
   },
-  -- ignore_install = { "javascript" },
+  ignore_install = {},
 
   highlight = {
     enable = true,
@@ -46,7 +46,7 @@ require("nvim-treesitter.configs").setup {
     --     local max_filesize = 100 * 1024 -- 100 KB
     --     local ok, stats = pcall(vim.loop., vim.api.nvim_buf_get_name(buf))
     --     cker exec -it 817da01eb28616f3688e63c9dd5ce785ea2033137cd2e5edca5bb3fcb5972718 /bin/sh
-    --     
+    --
     --     if ok and stats and stats.size > max_filesize then
     --         return true
     --     end
@@ -58,4 +58,3 @@ require("nvim-treesitter.configs").setup {
   -- Instead of true it can also be a list of languages
   additional_vim_regex_highlighting = false,
 }
-end

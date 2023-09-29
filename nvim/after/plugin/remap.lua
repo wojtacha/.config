@@ -3,14 +3,21 @@ if not vim.g.vscode then
   ---@param plugin string The plugin to search for
   ---@return boolean available # Whether the plugin is available
 
-  local function is_available(plugin)
-    local lazy_config_avail, lazy_config = pcall(require, "lazy.core.config")
-    return lazy_config_avail and lazy_config.plugins[plugin] ~= nil
-  end
-
   local wk = require "which-key"
 
   local builtin = require "telescope.builtin"
+  wk.register {
+    ["<leader>"] = {
+      f = {
+        name = "+find",
+        b = "[F]ind open [b]uffers",
+        s = "[F]ile [s]earch - inside live grep",
+        g = "[F]ind [g]it files",
+        f = "[F]ind [f]iles",
+        h = "[F]ind [h]elp",
+      },
+    },
+  }
   vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
   vim.keymap.set("n", "<leader>fg", builtin.git_files, {})
   vim.keymap.set("n", "<leader>fs", builtin.live_grep, {})
@@ -24,11 +31,9 @@ if not vim.g.vscode then
   vim.keymap.set("n", "Ż", "<C-w>-", { desc = "Resize window right" })
 
   -- NeoTree
-  if is_available "neo-tree.nvim" then
-    vim.keymap.set("n", "<leader>pv", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-    vim.keymap.set("n", "<F1>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-    vim.keymap.set("n", "<leader>pr", "<cmd>Neotree reveal<cr>", { desc = "Reveal file in Neotree" })
-  end
+  vim.keymap.set("n", "<leader>pv", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
+  vim.keymap.set("n", "<F1>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
+  vim.keymap.set("n", "<leader>pr", "<cmd>Neotree reveal<cr>", { desc = "Reveal file in Neotree" })
 
   vim.keymap.set("n", "<F3>", require("telescope").extensions.repo.list, { desc = "Toggle Repo Explorer" })
   vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope commands<cr>", { desc = "Toggle Commands Explorer" })
@@ -87,7 +92,7 @@ if not vim.g.vscode then
     "n",
     "<leader>r",
     function() require("config.later.formatter").format() end,
-    { desc = "Format code with formatter" }
+    { desc = "Format code with formatter", noremap = true }
   )
 
   -- Navigator
@@ -95,9 +100,6 @@ if not vim.g.vscode then
   vim.keymap.set({ "n", "v" }, "<C-k>", "<C-w>k", { desc = "Go to up window", noremap = true })
   vim.keymap.set({ "n", "v" }, "<C-j>", "<C-w>j", { desc = "Go to down window", noremap = true })
   vim.keymap.set({ "n", "v" }, "<C-h>", "<C-w>h", { desc = "Go to left window", noremap = true })
-
-  -- vim.keymap.set({ "n", "v" }, "<C-i>", "<C-o>", { desc = "Go [o]utside", noremap = true })
-  -- vim.keymap.set({ "n", "v" }, "<C-o>", "<C-i>", { desc = "Go [i]nside", noremap = true })
 
   vim.keymap.set("x", "x", [["_x]], { desc = "x command send char to black hole register", noremap = true })
   vim.keymap.set(
@@ -112,14 +114,6 @@ if not vim.g.vscode then
     "<Esc>:nohlsearch<CR><Esc>",
     { desc = "Unhighlight search occurences", silent = true, noremap = true }
   )
-  -- -- LeetCode
-  -- -- Move it to after/config.lua
-  -- vim.g.leetcode_browser = "brave"
-  -- vim.g.leetcode_solution_filetype = "python3"
-  -- vim.keymap.set({ "n", "v" }, "<leader>ll", "<cmd>LeetCodeList<cr>", { desc = "LeetCodeList", noremap = true })
-  -- vim.keymap.set({ "n", "v" }, "<leader>lt", "<cmd>LeetCodeTest<cr>", { desc = "LeetCodeTest", noremap = true })
-  -- vim.keymap.set({ "n", "v" }, "<leader>ls", "<cmd>LeetCodeSubmit<cr>", { desc = "LeetCodeSubmit", noremap = true })
-  -- vim.keymap.set({ "n", "v" }, "<leader>li", "<cmd>LeetCodeSignIn<cr>", { desc = "LeetCodeSignIn", noremap = true })
 
   vim.keymap.set(
     { "n", "v" },
@@ -137,7 +131,7 @@ if not vim.g.vscode then
   wk.register {
     ["<leader>"] = {
       g = {
-        name = "[G]it",
+        name = "+git",
         b = "Git [b]lame",
         s = "Git [s]tages - tpope",
         g = "Git lazy[g]it",
@@ -148,6 +142,18 @@ if not vim.g.vscode then
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 
+  wk.register {
+    ["<leader>"] = {
+      d = {
+        name = "[D]iagnostic",
+        i = "[d]iagnostic [i]nfo",
+        l = "[d]iagnostic [l]ist",
+        h = "[d]iagnostic [h]ide",
+        n = "[d]iagnostic [n]ext also ]d",
+        p = "[d]iagnostic [p]rev also [d",
+      },
+    },
+  }
   vim.keymap.set(
     "n",
     "<leader>di",
@@ -158,6 +164,10 @@ if not vim.g.vscode then
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
   vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "[d]iagnostic [l]ist" })
+  vim.keymap.set("n", "<leader>dh", vim.diagnostic.hide, { desc = "[d]iagnostic [h]ide" })
+  vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "[d]iagnostic [n]ext" })
+  vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "[d]iagnostic [p]rev" })
+
   -- Illuminate
 
   wk.register {
@@ -169,11 +179,8 @@ if not vim.g.vscode then
   }
   vim.keymap.set("n", "gn", require("illuminate").goto_next_reference, { desc = "Move to next reference" })
   vim.keymap.set("n", "gp", require("illuminate").goto_prev_reference, { desc = "Move to previous reference" })
-  -- vim.keymap.set("o", "<C-[>", require("illuminate").textobj_select)
-  -- vim.keymap.set("x", "<C-[>", require("illuminate").textobj_select)
 
-  -- Use LspAttach autocommand to only map the following keys
-  -- after the language server attaches to the current buffer
+  -- Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
@@ -182,7 +189,6 @@ if not vim.g.vscode then
 
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
-      local opts = { buffer = ev.buf }
       wk.register {
         g = {
           name = "LSP",
@@ -190,48 +196,63 @@ if not vim.g.vscode then
           d = "[d]efinition",
         },
         ["<leader>"] = {
-          g = {
-            name = "LSP",
-            i = "[g]o to [i]mplementation",
-            D = "[D]eclaration",
-            d = "[d]efinition",
+          D = "type [D]efinition",
+          l = {
+            name = "+LSP",
+            i = "[i]mplementation",
+            D = "[D]eclaration or gD",
+            d = "[d]efinition or gd",
+            r = "[r]eferences or gr",
           },
           sh = "LSP [s]ignature [h]elp",
-          rn = "LSP [r]e[n]ame",
-          td = "LSP [t]ype [d]efinition",
+          r = {
+            name = "+re",
+            n = "LSP [r]e[n]ame",
+          },
           wl = "LSP [w]orkspace [f]olders",
-          gr = "LSP [g]o [r]eferences",
-          ca = "LSP [c]ode [a]ctions",
+          c = {
+            name = "+code",
+            a = "LSP [c]ode [a]ctions",
+          },
           K = "LSP hover",
         },
       }
-      vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts, { desc = "declaration" })
-      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts, { desc = "definition" })
-      vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, opts, { desc = "hover" })
-      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts, { desc = "declaration" })
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts, { desc = "definition" })
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts, { desc = "hover" })
+      vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "declaration" })
+      vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { buffer = ev.buf, desc = "definition" })
+      vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, { buffer = ev.buf, desc = "references" })
+      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "declaration" })
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "definition" })
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "references" })
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "hover" })
+      vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "hover" })
       vim.keymap.set(
         "n",
-        "<leader>gi",
+        "<leader>li",
         function() print(vim.lsp.buf.implementation()) end,
-        opts,
-        { desc = "implementation" }
+        { buffer = ev.buf, desc = "implementation" }
       )
-      vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, opts, { desc = "signature_help" })
-      vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts, { desc = "add_workspace_folder" })
-      vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts, { desc = "remove_workspace_folder" })
+      vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "signature_help" })
+      vim.keymap.set(
+        "n",
+        "<leader>wa",
+        vim.lsp.buf.add_workspace_folder,
+        { buffer = ev.buf, desc = "add_workspace_folder" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>wr",
+        vim.lsp.buf.remove_workspace_folder,
+        { buffer = ev.buf, desc = "remove_workspace_folder" }
+      )
       vim.keymap.set(
         "n",
         "<leader>wf",
         function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-        opts,
-        { desc = "list_workspace_folders" }
+        { buffer = ev.buf, desc = "list_workspace_folders" }
       )
-      vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts, { desc = "type_definition" })
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts, { desc = "rename" })
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts, { desc = "code_action" })
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts, { desc = "references" })
+      vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "type_definition" })
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, buffer = ev.buf, desc = "rename" })
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code_action" })
     end,
   })
   vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Jump down half page and center" })
@@ -240,6 +261,27 @@ if not vim.g.vscode then
   vim.keymap.set("n", "N", "Nzz", { desc = "Previous search occurence and focus view" })
 
   --====== TERMINAL
+  local betterTerm = require "betterTerm"
+  wk.register {
+    ["<leader>"] = {
+      t = {
+        name = "+terminal",
+        D = "[D]eclaration",
+        t = "[t]oggle",
+        s = "[s]elect",
+      },
+    },
+  }
+  -- toggle firts term
+  vim.keymap.set({ "n", "t" }, "<leader>tt", betterTerm.open, { desc = "Open terminal" })
+  -- Select term focus
+  vim.keymap.set({ "n" }, "<leader>ts", betterTerm.select, { desc = "Select terminal" })
+  -- Create new term
+  local current = 2
+  vim.keymap.set({ "n" }, "<leader>tn", function()
+    betterTerm.open(current)
+    current = current + 1
+  end, { desc = "New terminal" })
   vim.keymap.set({ "t" }, "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Go to right window", noremap = true })
   vim.keymap.set({ "t" }, "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Go to up window", noremap = true })
   vim.keymap.set({ "t" }, "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Go to down window", noremap = true })

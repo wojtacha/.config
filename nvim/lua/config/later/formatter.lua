@@ -13,6 +13,16 @@ local function prettier_format()
   }
 end
 
+local function swift_format()
+  return {
+    exe = "swiftformat",
+    args = {
+      vim.fn.shellescape(vim.api.nvim_buf_get_name(0)),
+    },
+    stdin = false,
+  }
+end
+
 local util = require "formatter.util"
 
 local filetype_config = {
@@ -33,6 +43,7 @@ local filetype_config = {
       }
     end,
   },
+  swift = { swift_format },
   ruby = {
     require("formatter.filetypes.ruby").rubocop,
   },
@@ -78,8 +89,8 @@ M.format = function()
   if filetype_config[ft] == nil then
     -- local lsp_clients = vim.lsp.get_active_clients()
     -- for _, value in pairs(lsp_clients) do
-      -- print("lsp name: " .. value.name)
-      -- print(tprint(value.server_capabilities, 1))
+    -- print("lsp name: " .. value.name)
+    -- print(tprint(value.server_capabilities, 1))
     -- end
     vim.lsp.buf.format()
   else

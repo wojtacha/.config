@@ -1,2 +1,6 @@
 require("config.later.formatter")
+require("config.later.lualine")
 require("config.later.noice")
+require("config.later.linters")
+require("config.later.illuminate")
+require("config.later.colorscheme")

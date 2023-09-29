@@ -8,6 +8,7 @@ vim.o.hlsearch = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
+
 -- vim.cmd [[
 -- :augroup numbertoggle
 -- :  autocmd!

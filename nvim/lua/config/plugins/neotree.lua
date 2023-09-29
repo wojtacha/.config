@@ -27,13 +27,33 @@ local function getTelescopeOpts(state, path)
 end
 
 return {
-  {
-    "s1n7ax/nvim-window-picker",
-    name = "window-picker",
-    event = "VeryLazy",
-    version = "2.*",
-    config = function() require("window-picker").setup() end,
-  },
+  -- {
+  --   "s1n7ax/nvim-window-picker",
+  --   name = "window-picker",
+  --   event = "VeryLazy",
+  --   version = "2.*",
+  --   config = function()
+  --     require("window-picker").setup {
+  --       hint = "floating-big-letter",
+  --       picker_config = {
+  --         use_winbar = "always", -- "always" | "never" | "smart"
+  --       },
+  --       floating_big_letter = {
+  --         font = "ansi-shadow", -- ansi-shadow |
+  --       },
+  --       filter_rules = {
+  --         -- filter using buffer options
+  --         bo = {
+  --           -- if the file type is one of following, the window will be ignored
+  --           filetype = { "NvimTree", "neo-tree", "notify", "qf" },
+  --
+  --           -- if the file type is one of following, the window will be ignored
+  --           buftype = { "terminal" },
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
   {
     "nvim-neo-tree/neo-tree.nvim",
     version = "*",
@@ -44,11 +64,15 @@ return {
       {
         -- only needed if you want to use the commands with "_with_window_picker" suffix
         "s1n7ax/nvim-window-picker",
-        version = "v1.5",
+        version = "v2.*",
         config = function()
           require("window-picker").setup {
+            hint = "floating-big-letter",
             autoselect_one = true,
             include_current = false,
+            floating_big_letter = {
+              font = "ansi-shadow", -- ansi-shadow |
+            },
             filter_rules = {
               -- filter using buffer options
               bo = {
@@ -59,7 +83,7 @@ return {
                 buftype = { "terminal", "quickfix" },
               },
             },
-            other_win_hl_color = "#e35e4f",
+            other_win_hl_color = "#006400",
           }
         end,
       },

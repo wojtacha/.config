@@ -1,4 +1,3 @@
-if not vim.g.vscode then
 local function table_concat(tab, seperator)
   if seperator == nil then return table.concat(tab) end
   local buffer = {}
@@ -25,8 +24,8 @@ local colors = {
   blue = "#80A7EA",
   jelly_blue = "#6F85B3",
   jelly_red = "#FF6347",
-jelly_deep_blue = "#000080",
-jelly_medium_blue = "#0070FF",
+  jelly_deep_blue = "#000080",
+  jelly_medium_blue = "#0070FF",
   jelly_green = "#89A159",
   jelly_pink = "#EB8DB4",
   jelly_yellow = "#FED93F",
@@ -128,6 +127,11 @@ local modes = {
   separator = { left = "", right = "" },
 }
 
+local location = {
+  "location",
+  color = { bg = colors.dark, fg = colors.white },
+}
+
 local function getLspName()
   local msg = "No Lsp"
   local next = next
@@ -196,11 +200,12 @@ require("lualine").setup {
         require("noice").api.statusline.mode.get,
         cond = require("noice").api.statusline.mode.has,
         color = { fg = colors.yellow },
-      }
+      },
     },
     lualine_y = {
       -- fileformat,
       encoding,
+      location,
       space,
     },
     lualine_z = {
@@ -233,4 +238,3 @@ require("lualine").setup {
   winbar = {},
   inactive_winbar = {},
 }
-end

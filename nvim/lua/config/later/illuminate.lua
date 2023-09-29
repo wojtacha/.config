@@ -1,4 +1,3 @@
-if not vim.g.vscode then
 require("illuminate").configure {}
 
 -- change the highlight style
@@ -16,4 +15,3 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = true })
   end,
 })
-end

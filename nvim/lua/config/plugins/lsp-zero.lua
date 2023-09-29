@@ -1,3 +1,4 @@
+local all_cmp_filetypes = { "lua", "dart", "swift", "ruby", "rust" }
 return {
   {
     "VonHeikemen/lsp-zero.nvim",
@@ -13,56 +14,23 @@ return {
       -- Autocompletion
       {
         "hrsh7th/nvim-cmp",
-	event = "VeryLazy",
-        config = function()
-          local cmp = require "cmp"
-          cmp.setup {
-            mapping = {
-              ["<C-j>"] = function(fallback)
-                if cmp.visible() then
-                  cmp.select_next_item()
-                else
-                  fallback()
-                end
-              end,
-              ["<C-k>"] = function(fallback)
-                if cmp.visible() then
-                  cmp.select_prev_item()
-                else
-                  fallback()
-                end
-              end,
-              ["<cr>"] = function(fallback)
-                if cmp.visible() then
-                  cmp.confirm { select = true }
-                else
-                  fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
-                end
-              end,
-              ["<C-l>"] = function(fallback)
-                if cmp.visible() then
-                  cmp.confirm()
-                else
-                  fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
-                end
-              end,
-            },
-          }
-        end,
+        ft = { "lua", "dart", "swift", "ruby", "rust" },
+        -- event = "VeryLazy",
       },
-      { "mfussenegger/nvim-lint" },
 
       -- Required
-      { "hrsh7th/cmp-nvim-lsp" }, -- Required
-      { "hrsh7th/cmp-buffer" }, -- Optional
-      { "hrsh7th/cmp-path" }, -- Optional
-      { "saadparwaiz1/cmp_luasnip" }, -- Optional
-      { "hrsh7th/cmp-nvim-lua" }, -- Optional
-      { "ms-jpq/coq_nvim", branch = "coq" },
+      { "hrsh7th/cmp-nvim-lsp", ft = all_cmp_filetypes }, -- Required
+      { "hrsh7th/cmp-buffer", ft = all_cmp_filetypes }, -- Optional
+      { "hrsh7th/cmp-path", ft = all_cmp_filetypes }, -- Optional
+      { "saadparwaiz1/cmp_luasnip", ft = all_cmp_filetypes }, -- Optional
+      { "hrsh7th/cmp-nvim-lua", ft = all_cmp_filetypes }, -- Optional
       -- Snippets
-      { "L3MON4D3/LuaSnip" }, -- Required
-      { "rafamadriz/friendly-snippets" }, -- Optional
+      { "L3MON4D3/LuaSnip", ft = all_cmp_filetypes }, -- Required
+      { "rafamadriz/friendly-snippets", ft = all_cmp_filetypes }, -- Optional
     },
   },
+
   { "mhartington/formatter.nvim", cmd = "Format" },
+  { "mfussenegger/nvim-lint" },
+  { "ms-jpq/coq_nvim", branch = "coq", ft = { "go" } },
 }
