@@ -30,11 +30,13 @@ if not vim.g.vscode then
   vim.keymap.set("n", "∆", "<C-w>+", { desc = "Resize window left" })
   vim.keymap.set("n", "Ż", "<C-w>-", { desc = "Resize window right" })
 
+  -- Netwr
+  vim.keymap.set("n", "<leader>e", "<cmd>Explore<cr>", { desc = "Toggle Explorer" })
   -- NeoTree
   vim.keymap.set("n", "<leader>pv", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
   vim.keymap.set("n", "<F1>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
   vim.keymap.set("n", "<leader>pr", "<cmd>Neotree reveal<cr>", { desc = "Reveal file in Neotree" })
-
+  vim.keymap.set("n", "<F2>", vim.cmd.UndotreeToggle)
   vim.keymap.set("n", "<F3>", require("telescope").extensions.repo.list, { desc = "Toggle Repo Explorer" })
   vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope commands<cr>", { desc = "Toggle Commands Explorer" })
   vim.keymap.set("n", "<F4>", function()
@@ -71,7 +73,6 @@ if not vim.g.vscode then
       end,
     }
   end, { desc = "Toggle Project Explorer", noremap = true, silent = true })
-  vim.keymap.set("n", "<F5>", vim.cmd.UndotreeToggle)
 
   -- Harpoon
   vim.keymap.set("n", "<c-e>", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon toggle", noremap = true })
@@ -90,7 +91,7 @@ if not vim.g.vscode then
 
   vim.keymap.set(
     "n",
-    "<leader>r",
+    "<leader>rf",
     function() require("config.later.formatter").format() end,
     { desc = "Format code with formatter", noremap = true }
   )
@@ -169,7 +170,6 @@ if not vim.g.vscode then
   vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "[d]iagnostic [p]rev" })
 
   -- Illuminate
-
   wk.register {
     g = {
       name = "[g]o",
@@ -207,7 +207,8 @@ if not vim.g.vscode then
           sh = "LSP [s]ignature [h]elp",
           r = {
             name = "+re",
-            n = "LSP [r]e[n]ame",
+            n = "LSP +[r]e[n]ame",
+            f = "+[r]e[f]ormat",
           },
           wl = "LSP [w]orkspace [f]olders",
           c = {

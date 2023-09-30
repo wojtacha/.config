@@ -30,9 +30,13 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = "screenline,number"
 -- vim.cmd "highlight CursorLine guifg=#11f0c3 guibg=#ff00ff"
 
--- Enable mouse mode
-vim.o.mouse = "a"
 
+-- Netrw 
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+
+vim.o.mouse = "a"
 -- cursorline
 -- cursorcolumn
 -- cmd line height
