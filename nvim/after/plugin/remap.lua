@@ -78,9 +78,9 @@ if not vim.g.vscode then
   end, { desc = "Toggle Project Explorer", noremap = true, silent = true })
 
   -- Harpoon
-  -- vim.keymap.set("n", "<c-e>", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon toggle", noremap = true })
-  -- vim.keymap.set("n", "<c-q>", require("harpoon.ui").nav_next, { desc = "next Harpoon mark", noremap = true })
-  -- vim.keymap.set("n", "<c-n>", require("harpoon.mark").add_file, { desc = "add harpoon mark", noremap = true })
+  vim.keymap.set("n", "<c-e>", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon toggle", noremap = true })
+  vim.keymap.set("n", "<c-q>", require("harpoon.ui").nav_next, { desc = "next Harpoon mark", noremap = true })
+  vim.keymap.set("n", "<c-n>", require("harpoon.mark").add_file, { desc = "add harpoon mark", noremap = true })
 
   -- [[ Basic Keymaps ]]
   -- Keymaps for better default experience

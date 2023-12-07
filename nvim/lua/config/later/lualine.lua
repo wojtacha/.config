@@ -217,8 +217,6 @@ require("lualine").setup {
         status_not = false, -- When true, invert the status search
       },
       {
-        require("noice").api.statusline.mode.get,
-        cond = require("noice").api.statusline.mode.has,
         color = { fg = colors.yellow },
       },
     },

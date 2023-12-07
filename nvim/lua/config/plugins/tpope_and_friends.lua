@@ -1,6 +1,12 @@
 return {
   { "tpope/vim-fugitive", cmd = "Git" },
-  { "ThePrimeagen/harpoon", event = "VeryLazy" },
+  {
+	  "ThePrimeagen/harpoon",
+	  event = "VeryLazy",
+	  branch = "harpoon2",
+	  dependencies = { "nvim-lua/plenary.nvim" }
+  },
+
   { "FabijanZulj/blame.nvim", cmd = "ToggleBlame" },
   { "airblade/vim-gitgutter", event = "VeryLazy" },
   {
