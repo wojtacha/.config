@@ -5,11 +5,9 @@ if vim.g.vscode then
 else
   require "config"
   require("lazy").setup "config.plugins"
-  require("nvim-treesitter.install").compilers = { "gcc" }
 
   -- LSP ZERO --
   local lsp = require "lsp-zero"
-  local coq = require "coq"
   lsp.preset {}
   lsp.on_attach(function(client, bufnr) lsp.default_keymaps { buffer = bufnr } end)
   -- (Optional) Configure lua language server for neovim
@@ -21,9 +19,12 @@ else
   require("mason-lspconfig").setup {
     ensure_installed = { "lua_ls", "rust_analyzer" },
   }
+
   local lspconfig = require "lspconfig"
+
+  lsp.skip_server_setup { "jdtls" }
+
   lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
-  lspconfig.gopls.setup(coq.lsp_ensure_capabilities())
   lspconfig.sourcekit.setup {
     cmd = { "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp" },
     single_file_support = true,
@@ -141,6 +142,12 @@ else
     sources = cmp.config.sources {
       { name = "luasnip" },
       { name = "nvim_lsp" },
+      { name = "vim-dadbod-completion" },
+      { name = "buffer" },
+      { name = "path" },
+    },
+
+    {
       { name = "buffer" },
     },
     experimental = {
@@ -148,6 +155,25 @@ else
     },
     --- (Optional) Show source name in completion menu
     formatting = cmp_format,
+
+    ---@class cmp.FormattingConfig
+    ---@field public fields cmp.ItemField[]
+    ---@field public expandable_indicator boolean
+    ---@field public format fun(entry: cmp.Entry, vim_item: vim.CompletedItem): vim.CompletedItem
+    -- formatting = {
+    --   format = lspkind.cmp_format {
+    --     mode = "symbol_text",
+    --     -- with_text = true,
+    --     menu = {
+    --       nvim_lua = "[api]",
+    --       nvim_lsp = "[LSP]",
+    --       luasnip = "[snip]",
+    --       vim_dadbod_completion = "[DB]",
+    --       path = "[path]",
+    --       buffer = "[Buffer]",
+    --     },
+    --   },
+    -- },
   }
 
   require "config.later"
@@ -156,4 +182,18 @@ else
   local telescope = require "telescope"
   telescope.load_extension "repo"
   telescope.load_extension "project"
+
+  vim.api.nvim_create_user_command("WatchRun", function()
+    local overseer = require "overseer"
+    overseer.run_template({ name = "run script" }, function(task)
+      if task then
+        task:add_component { "restart_on_save", paths = { vim.fn.expand "%:p" } }
+        local main_win = vim.api.nvim_get_current_win()
+        overseer.run_action(task, "open vsplit")
+        vim.api.nvim_set_current_win(main_win)
+      else
+        vim.notify("WatchRun not supported for filetype " .. vim.bo.filetype, vim.log.levels.ERROR)
+      end
+    end)
+  end, {})
 end

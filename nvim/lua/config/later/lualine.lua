@@ -63,7 +63,10 @@ local space = {
 local filename = {
   "filename",
   color = { bg = colors.blue, fg = "#242735" },
-  separator = { left = "", right = "" },
+  separator = {
+	  -- left = "",
+  right = ""
+  },
 }
 
 local filetype = {
@@ -122,14 +125,17 @@ local diff = {
 
 local modes = {
   "mode",
-  -- fmt = function(str) return str:sub(1, 1) end,
-  -- color = { bg = function(str) end, fg = colors.black },
-  separator = { left = "", right = "" },
+   fmt = function(str) return str:sub(1, 1) end,
+   -- color = { bg = function(str) end, fg = colors.black },
+  separator = { left = "",
+  -- right = ""
+  },
 }
 
 local location = {
   "location",
-  color = { bg = colors.dark, fg = colors.white },
+  color = { bg = colors.blacker, fg = colors.white },
+  separator = { left = "", right = "" },
 }
 
 local function getLspName()
@@ -160,6 +166,7 @@ local lsp = {
   color = { bg = colors.grey, fg = colors.black },
 }
 
+local overseer = require "overseer.constants"
 require("lualine").setup {
   options = {
     icons_enabled = true,
@@ -183,58 +190,59 @@ require("lualine").setup {
   sections = {
     lualine_a = {
       modes,
-    },
-    lualine_b = {
-      space,
-    },
-    lualine_c = {
       filename,
       filetype,
-      space,
-      branch,
-      diff,
     },
+    lualine_b = {
+    },
+    lualine_c = {
+    },
+
     lualine_x = {
       space,
+      {
+        "overseer",
+        label = "", -- Prefix for task counts
+        colored = true, -- Color the task icons and counts
+        symbols = {
+          [overseer.STATUS.FAILURE] = "F:",
+          [overseer.STATUS.CANCELED] = "C:",
+          [overseer.STATUS.SUCCESS] = "S:",
+          [overseer.STATUS.RUNNING] = "R:",
+        },
+        unique = false, -- Unique-ify non-running task count by name
+        name = nil, -- List of task names to search for
+        name_not = false, -- When true, invert the name search
+        status = nil, -- List of task statuses to display
+        status_not = false, -- When true, invert the status search
+      },
       {
         require("noice").api.statusline.mode.get,
         cond = require("noice").api.statusline.mode.has,
         color = { fg = colors.yellow },
       },
     },
+
     lualine_y = {
       -- fileformat,
-      encoding,
-      location,
-      space,
+      -- encoding,
     },
     lualine_z = {
+      location,
       dia,
       lsp,
+      diff,
     },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { "filename" },
-    lualine_x = { "location" },
+    lualine_c = {},
+    lualine_x = {},
     lualine_y = {},
     lualine_z = {},
   },
-  -- tabline = {
-  --   lualine_a = {
-  --     -- buffer,
-  --   },
-  --   lualine_b = {},
-  --   lualine_c = {},
-  --   lualine_x = {
-  --     -- tabs,
-  --   },
-  --   lualine_y = {
-  --     space,
-  --   },
-  --   lualine_z = {},
-  -- },
+  tabline = {},
   winbar = {},
   inactive_winbar = {},
 }

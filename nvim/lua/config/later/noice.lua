@@ -11,7 +11,7 @@ require("noice").setup {
   cmdline = {
     enabled = true, -- enables the Noice cmdline UI
     -- view = "cmdline_popup",
-    view = "cmdline",
+    view = "cmdline_popup",
   },
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**

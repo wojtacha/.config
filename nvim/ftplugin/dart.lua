@@ -1,4 +1,3 @@
-print "Odpalam config z main.ftplugin"
+print "Flutter config running... "
 require("flutter-tools").setup {}
 require("telescope").load_extension "flutter"
-

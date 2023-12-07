@@ -7,6 +7,8 @@ require("nvim-treesitter.configs").setup {
     "query",
     "javascript",
     "typescript",
+    "markdown_inline",
+    "markdown",
     "json",
     "yaml",
     "ruby",
@@ -58,3 +60,7 @@ require("nvim-treesitter.configs").setup {
   -- Instead of true it can also be a list of languages
   additional_vim_regex_highlighting = false,
 }
+
+-- local ft_to_parser = require("nvim-treesitter.parsers").filetype_to_parsername
+-- ft_to_parser.mdx = "markdown"
+-- ft_to_parser.markdown = "markdown_inline"

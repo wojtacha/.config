@@ -5,9 +5,10 @@
 vim.o.hlsearch = true
 
 -- Make line numbers default
+--
+
 vim.wo.number = true
 vim.wo.relativenumber = true
-
 
 -- vim.cmd [[
 -- :augroup numbertoggle
@@ -30,17 +31,14 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = "screenline,number"
 -- vim.cmd "highlight CursorLine guifg=#11f0c3 guibg=#ff00ff"
 
-
--- Netrw 
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
+-- Netrw
+-- vim.g.netrw_browse_split = 3
+-- vim.g.netrw_banner = 0
+-- vim.g.netrw_winsize = 25
 
 vim.o.mouse = "a"
 -- cursorline
 -- cursorcolumn
--- cmd line height
--- vim.o.cmdheight=0
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -65,4 +63,3 @@ vim.o.completeopt = "menuone,noselect"
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
-

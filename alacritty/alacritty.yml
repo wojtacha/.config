@@ -14,14 +14,14 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+# env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  #TERM: xterm-256color
+  # TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -61,12 +61,12 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: buttonless 
+  decorations: buttonless
   # Background opacity
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.80
+  opacity: 0.90
   # Startup Mode (changes require restart)
   #
   # Values for `startup_mode`:
@@ -78,7 +78,7 @@ window:
   #   - SimpleFullscreen
   #   - Windowed
   #   SimpleFullscreen allows Menu bar b/c it's not 'real' full screen
-  startup_mode: Windowed 
+  startup_mode: Windowed
 
   # Window title
   title: Alacritty
@@ -118,7 +118,7 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     # family: JetBrainsMono Nerd Font Mono
-    family: UbuntuMono Nerd Font 
+    family: UbuntuMono Nerd Font
 
     # The `style` can be specified to pick a specific face.
     # style: Medium
@@ -187,15 +187,16 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background: '0x020203'
-    foreground: '0xc0caf5'
+    background: '#120203'
+    foreground: '#c0caf5'
 
     # Bright and dim foreground colors
     #
     # The dimmed foreground color is calculated automatically if it is not
-    # present. If the bright foreground color is not set, or
+    # presen#100000t. If the bright foreground color is not set, or
     # `draw_bold_text_with_bright_colors` is `false`, the normal foreground
     # color will be used.
+
     dim_foreground: '#545554'
     bright_foreground: '#DFEEDF'
 
@@ -222,19 +223,19 @@ colors:
   # Search colors
   #
   # Colors used for the search bar and match highlighting.
-  #search:
+  search:
     # Allowed values are CellForeground/CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
-    #matches:
-    #  foreground: '#000000'
-    #  background: '#ffffff'
-    #focused_match:
-    #  foreground: '#ffffff'
-    #  background: '#000000'
 
-    #bar:
-    #  background: '#c5c8c6'
-    #  foreground: '#1d1f21'
+    matches:
+     foreground: '#100000'
+     background: '#ffffff'
+    focused_match:
+     foreground: '#ffffff'
+     background: '#100000'
+    footer_bar:
+     background: '#100000'
+     foreground: '#c5c8c6'
 
   # Keyboard regex hints
   #hints:
@@ -275,45 +276,44 @@ colors:
   #  background: CellForeground
 
   # Normal colors
-#  normal:
-  #  black:   '#1d1f21'
-  #  red:     '#cc6666'
-  #  green:   '#59e858'
-  #  yellow:  '#ffea7f'
-  #  blue:    '#0fc9e4'
-  #  magenta: '#b392f0'
-  #  cyan:    '#73e3ff'
-  #  white:   '#666666'
+  # normal:
+  #   black:   '#15161e'
+  #   red:     '#f7768e'
+  #   green:   '#9ece6a'
+  #   yellow:  '#e0af68'
+  #   blue:    '#7aa2f7'
+  #   magenta: '#bb9af7'
+  #   cyan:    '#7dcfff'
+  #   white:   '#f6f8fa'
   normal:
-    black:   '0x15161e'
-    red:     '0xf7768e'
-    green:   '0x9ece6a'
-    yellow:  '0xe0af68'
-    blue:    '0x7aa2f7'
-    magenta: '0xbb9af7'
-    cyan:    '0x7dcfff'
-    white:   '0xa9b1d6'
-
+     black:   '0x15161e'
+     red:     '0xf7768e'
+     green:   '0x9ece6a'
+     yellow:  '0xe0af68'
+     blue:    '0x7aa2f7'
+     magenta: '0xbb9af7'
+     cyan:    '0x7dcfff'
+     white:   '0xa9b1d6'
   # Bright colors
-  #bright:
-  #  black:   '#666666'
-  #  red:     '#d54e53'
-  #  green:   '#85e89d'
-  #  yellow:  '#ffea7f'
-  #  blue:    '#1e90ff'
-  #  magenta: '#b392f0'
-  #  cyan:    '#1e90ff'
-  #  white:   '#f6f8fa'
-
   bright:
-    black:   '0x414868'
-    red:     '0xf7768e'
-    green:   '0x9ece6a'
-    yellow:  '0xe0af68'
-    blue:    '0x7aa2f7'
-    magenta: '0xbb9af7'
-    cyan:    '0x7dcfff'
-    white:   '0xc0caf5'
+   black:   '#151600'
+   red:     '#d54e53'
+   green:   '#85e89d'
+   yellow:  '#ffea7f'
+   blue:    '#1e90ff'
+   magenta: '#b392f0'
+   cyan:    '#7edfff'
+   white:   '#f6f8fa'
+
+  # bright:
+  #   black:   '0x414868'
+  #   red:     '0xf7768e'
+  #   green:   '0x9ece6a'
+  #   yellow:  '0xe0af68'
+  #   blue:    '0x7aa2f7'
+  #   magenta: '0xbb9af7'
+  #   cyan:    '0x7dcfff'
+  #   white:   '0xc0caf5'
 
   # Dim colors
   #
@@ -337,9 +337,10 @@ colors:
   # Example:
   #   `- { index: 16, color: '#ff00ff' }`
   #
-  indexed_colors: 
-    - { index: 16, color: '0xff9e64' }
-    - { index: 17, color: '0xdb4b4b' }
+  indexed_colors:
+    # - { index: 16, color: '#ff9e64' }
+    - { index: 16, color: '#1d1d1d' }
+    - { index: 17, color: '#db4b4b' }
 # Bell
 #
 # The bell is rung every time the BEL control character is received.
@@ -762,13 +763,55 @@ key_bindings:
   #- { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop,   }
   #- { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
 
+  # (Tmux Mac integration)
+  - { key: T,  mods: Command, chars: "\x01\x63"} # create a new tmux window
+  - { key: W,  mods: Command, chars: "\x01\x77" } # show sessions
+  - { key: F,  mods: Command, chars: "\x01\x06" } # ThePrimagen degen sessionizer
+
+  - { key: Semicolon, mods: Command, chars: "\x01:" } # enter the tmux command prompt
+  - { key: S, mods: Command, chars: "\x1b\x3a\x77\x0a" } # save vim buffer
+
+  - { key: H, mods: Command|Shift, chars: "\x01\x1b5b313b3644" } # 
+  - { key: J, mods: Command|Shift, chars: "\x01\x1b5b313b3643" } # 
+  - { key: K, mods: Command|Shift, chars: "\x01\x1b5b313b3641" } # 
+  - { key: L, mods: Command|Shift, chars: "\x01\x1b5b313b3642" } # 
+
+
+  # - { key: N, mods: Command, chars: "\x06\"" } # split tmux window vertically
+  #
+  # - { key: N, mods: Command|Shift, chars: "\x02%" } # split tmux window horizontally
+  # - { key: F, mods: Command|Shift, chars: "\x02\x5b\x2f" } # start tmux search mode
+  # - { key: G, mods: Command, chars: "\x02g" } # open git manager 'jesseduffield/lazygit'
+  # - { key: J, mods: Command, chars: "\x02\x54" } # open t - tmux smart session manager
+  # - { key: K, mods: Command, chars: "\x02s" } # open interactive tmux session client
+  # - { key: L, mods: Command, chars: "\x02L" } # switch to the last tmux session
+  # - { key: O, mods: Command, chars: "\x02u" } # open URLs 'joshmedeski/tmux-fzf-url'
+  # - { key: P, mods: Command, chars: ":GoToFile\n" } # files
+  # - { key: P, mods: Command|Shift, chars: ":GoToCommand\n" } # commands
+  # - { key: Q, mods: Command, chars: ":q\n" } # quit vim
+  # - { key: Z, mods: Command, chars: "\x02z" } # toggle zoom state of the current tmux pane
+  # - { key: Tab, mods: Control, chars: "\x02n" } # switch to next tmux window
+  # - { key: Grave, mods: Control, chars: "\x02p" } # switch to previous tmux window
+  # - { key: Comma, mods: Command, chars: "\x02," } # rename the current tmux window
+  # - { key: LBracket, mods: Command, chars: "\x0f" } # navigate back in vim (ctrl+o)
+  # - { key: LBracket, mods: Command|Shift, chars: "\x02p" } # switch to next tmux window
+  # - { key: RBracket, mods: Command, chars: "\x09" } # navigate forward in vim (ctrl+i)
+  # - { key: RBracket, mods: Command|Shift, chars: "\x02n" } # switch to previous tmux window
+
+  - { key: Key1, mods: Command, chars: "\x011" } # select tmux window 1
+  - { key: Key2, mods: Command, chars: "\x012" } #                ... 2
+  - { key: Key3, mods: Command, chars: "\x013" } #                ... 3
+  - { key: Key4, mods: Command, chars: "\x014" } #                ... 4
+  - { key: Key5, mods: Command, chars: "\x015" } #                ... 5
+  - { key: Key6, mods: Command, chars: "\x016" } #                ... 6
+  - { key: Key7, mods: Command, chars: "\x017" } #                ... 7
+  - { key: Key8, mods: Command, chars: "\x018" } #                ... 8
+  - { key: Key9, mods: Command, chars: "\x019" } #                ... 9
   # Vi Mode
   #- { key: Space,  mods: Shift|Control, mode: Vi|~Search, action: ScrollToBottom          }
   - { key: Space,  mods: Control, mode: ~Search,    action: ToggleViMode            }
   #- { key: Escape,                      mode: Vi|~Search, action: ClearSelection          }
   #- { key: I,                           mode: Vi|~Search, action: ScrollToBottom          }
-  #- { key: I,                           mode: Vi|~Search, action: ToggleViMode            }
-  #- { key: C,      mods: Control,       mode: Vi|~Search, action: ToggleViMode            }
   #- { key: Y,      mods: Control,       mode: Vi|~Search, action: ScrollLineUp            }
   #- { key: E,      mods: Control,       mode: Vi|~Search, action: ScrollLineDown          }
   #- { key: G,                           mode: Vi|~Search, action: ScrollToTop             }
@@ -778,7 +821,6 @@ key_bindings:
   #- { key: U,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageUp        }
   #- { key: D,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageDown      }
   #- { key: Y,                           mode: Vi|~Search, action: Copy                    }
-  #- { key: Y,                           mode: Vi|~Search, action: ClearSelection          }
   #- { key: Copy,                        mode: Vi|~Search, action: ClearSelection          }
   #- { key: V,                           mode: Vi|~Search, action: ToggleNormalSelection   }
   #- { key: V,      mods: Shift,         mode: Vi|~Search, action: ToggleLineSelection     }
@@ -848,6 +890,7 @@ key_bindings:
   #- { key: K,              mods: Command, mode: ~Vi|~Search, action: ClearHistory          }
   - { key: Key9,           mods: Command,                    action: ResetFontSize         }
   - { key: N,           mods: Command,                    action: None }
+
   #- { key: Equals,         mods: Command,                    action: IncreaseFontSize      }
   #- { key: Plus,           mods: Command,                    action: IncreaseFontSize      }
   #- { key: NumpadAdd,      mods: Command,                    action: IncreaseFontSize      }

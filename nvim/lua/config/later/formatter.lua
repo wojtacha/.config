@@ -54,9 +54,11 @@ local filetype_config = {
   ["javascript.jsx"] = { prettier_format },
   typescript = { prettier_format },
   ["typescript.tsx"] = { prettier_format },
-  -- ["*"] = {
-  --   require("formatter.filetypes.any").remove_trailing_whitespace,
-  -- },
+  sh = { require("formatter.filetypes.sh").shfmt },
+  ["zsh"] = { require("formatter.filetypes.sh").shfmt },
+  ["*"] = {
+    require("formatter.filetypes.any").remove_trailing_whitespace,
+  },
 }
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands

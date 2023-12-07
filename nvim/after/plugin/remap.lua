@@ -5,7 +5,10 @@ if not vim.g.vscode then
 
   local wk = require "which-key"
 
-  local builtin = require "telescope.builtin"
+  local telescope = require "telescope.builtin"
+  local telescope_state = require "telescope.state"
+  local last_search = nil
+
   wk.register {
     ["<leader>"] = {
       f = {
@@ -18,11 +21,11 @@ if not vim.g.vscode then
       },
     },
   }
-  vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-  vim.keymap.set("n", "<leader>fg", builtin.git_files, {})
-  vim.keymap.set("n", "<leader>fs", builtin.live_grep, {})
-  vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-  vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+  vim.keymap.set("n", "<leader>ff", telescope.find_files, {})
+  vim.keymap.set("n", "<leader>fg", telescope.git_files, {})
+  vim.keymap.set("n", "<leader>fs", telescope.live_grep, {})
+  vim.keymap.set("n", "<leader>fb", telescope.buffers, {})
+  vim.keymap.set("n", "<leader>fh", telescope.help_tags, {})
 
   -- this is weird but on polish mac keyboard this is how to map <A-h/l>
   vim.keymap.set("n", "ķ", "<C-w>>", { desc = "Resize window left" })
@@ -31,7 +34,7 @@ if not vim.g.vscode then
   vim.keymap.set("n", "Ż", "<C-w>-", { desc = "Resize window right" })
 
   -- Netwr
-  vim.keymap.set("n", "<leader>e", "<cmd>Explore<cr>", { desc = "Toggle Explorer" })
+  vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", { desc = "Toggle Explorer" })
   -- NeoTree
   vim.keymap.set("n", "<leader>pv", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
   vim.keymap.set("n", "<F1>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
@@ -75,9 +78,9 @@ if not vim.g.vscode then
   end, { desc = "Toggle Project Explorer", noremap = true, silent = true })
 
   -- Harpoon
-  vim.keymap.set("n", "<c-e>", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon toggle", noremap = true })
-  vim.keymap.set("n", "<c-q>", require("harpoon.ui").nav_next, { desc = "next Harpoon mark", noremap = true })
-  vim.keymap.set("n", "<c-n>", require("harpoon.mark").add_file, { desc = "add harpoon mark", noremap = true })
+  -- vim.keymap.set("n", "<c-e>", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon toggle", noremap = true })
+  -- vim.keymap.set("n", "<c-q>", require("harpoon.ui").nav_next, { desc = "next Harpoon mark", noremap = true })
+  -- vim.keymap.set("n", "<c-n>", require("harpoon.mark").add_file, { desc = "add harpoon mark", noremap = true })
 
   -- [[ Basic Keymaps ]]
   -- Keymaps for better default experience
@@ -91,18 +94,24 @@ if not vim.g.vscode then
 
   vim.keymap.set(
     "n",
+    "<leader>cf",
+    function() require("conform").format { async = true, lsp_fallback = true } end,
+    { desc = "Format code with formatter", noremap = true }
+  )
+
+  vim.keymap.set(
+    "n",
     "<leader>rf",
     function() require("config.later.formatter").format() end,
     { desc = "Format code with formatter", noremap = true }
   )
-
   -- Navigator
   vim.keymap.set({ "n", "v" }, "<C-l>", "<C-w>l", { desc = "Go to right window", noremap = true })
   vim.keymap.set({ "n", "v" }, "<C-k>", "<C-w>k", { desc = "Go to up window", noremap = true })
   vim.keymap.set({ "n", "v" }, "<C-j>", "<C-w>j", { desc = "Go to down window", noremap = true })
   vim.keymap.set({ "n", "v" }, "<C-h>", "<C-w>h", { desc = "Go to left window", noremap = true })
 
-  vim.keymap.set("x", "x", [["_x]], { desc = "x command send char to black hole register", noremap = true })
+  vim.keymap.set({ "n", "x" }, "x", [["_x]], { desc = "x command send char to black hole register", noremap = true })
   vim.keymap.set(
     "x",
     "p",
@@ -208,12 +217,12 @@ if not vim.g.vscode then
           r = {
             name = "+re",
             n = "LSP +[r]e[n]ame",
-            f = "+[r]e[f]ormat",
           },
           wl = "LSP [w]orkspace [f]olders",
           c = {
             name = "+code",
-            a = "LSP [c]ode [a]ctions",
+            a = "[c]ode [a]ctions",
+            f = "[c]ode [f]ormat",
           },
           K = "LSP hover",
         },
@@ -253,7 +262,13 @@ if not vim.g.vscode then
       )
       vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "type_definition" })
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, buffer = ev.buf, desc = "rename" })
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code_action" })
+      -- vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code_action" })
+      vim.keymap.set(
+        { "n", "v" },
+        "<leader>ca",
+        "<cmd>Lspsaga code_action<cr>",
+        { buffer = ev.buf, desc = "code_action" }
+      )
     end,
   })
   vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Jump down half page and center" })

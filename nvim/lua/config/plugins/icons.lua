@@ -28,6 +28,12 @@ return {
           cterm_color = "65",
           name = "Go",
         },
+        mod = {
+          icon = "󰟓 ",
+          color = "#911100",
+          cterm_color = "65",
+          name = "mod",
+        },
       }
     end,
   },

@@ -12,12 +12,7 @@ return {
       },
       { "williamboman/mason-lspconfig.nvim" }, -- Optional
       -- Autocompletion
-      {
-        "hrsh7th/nvim-cmp",
-        ft = { "lua", "dart", "swift", "ruby", "rust" },
-        -- event = "VeryLazy",
-      },
-
+      { "hrsh7th/nvim-cmp", ft = all_cmp_filetypes },
       -- Required
       { "hrsh7th/cmp-nvim-lsp", ft = all_cmp_filetypes }, -- Required
       { "hrsh7th/cmp-buffer", ft = all_cmp_filetypes }, -- Optional
@@ -32,5 +27,27 @@ return {
 
   { "mhartington/formatter.nvim", cmd = "Format" },
   { "mfussenegger/nvim-lint" },
-  { "ms-jpq/coq_nvim", branch = "coq", ft = { "go" } },
+  { "ms-jpq/coq_nvim", branch = "coq", lazy = true },
+  -- {
+  --   "ray-x/go.nvim",
+  --   dependencies = { -- optional packages
+  --     "ray-x/guihua.lua",
+  --     "neovim/nvim-lspconfig",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   config = function() require("go").setup() end,
+  --   event = { "CmdlineEnter" },
+  --   ft = { "go", "gomod" },
+  --   build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  -- },
+  {
+    "nvimdev/lspsaga.nvim",
+    config = function() require("lspsaga").setup { lightbulb = { enable = false } } end,
+    ft = { "go", "lua" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
+    },
+  },
+  { "mfussenegger/nvim-jdtls" },
 }

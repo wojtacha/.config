@@ -11,13 +11,27 @@ return {
       vim.g.leetcode_solution_filetype = "python3"
     end,
   },
-  { "norcalli/nvim-colorizer.lua", event = "VeryLazy" },
-  { "echasnovski/mini.nvim", version = "*" },
-  { "windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end },
+  { "norcalli/nvim-colorizer.lua", event = "VeryLazy" }, -- shows colors in code which is cool!
+  { "echasnovski/mini.nvim", version = "*" }, -- echasnovski jest przechuj
+  { "windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end }, -- when you press "{" sign "}" appears automagically
   { "mbbill/undotree", event = "VeryLazy" },
-  { "numToStr/Navigator.nvim", lazy = true, config = function() require("Navigator").setup {} end },
+  { "numToStr/Navigator.nvim", lazy = true, config = function() require("Navigator").setup {} end }, -- this is sth for tmux integration that can change window in split tmux
   { "kdheepak/lazygit.nvim", cmd = "LazyGit", dependencies = { "nvim-lua/plenary.nvim" } },
-  { "RRethy/vim-illuminate", event = "VeryLazy" },
+  { "RRethy/vim-illuminate", event = "VeryLazy" }, -- Vim plugin for automatically highlighting other uses of the word under the cursor
+  { "vimwiki/vimwiki", event = "VeryLazy" }, -- good plugin for notes cheatsheet diary todo
+  {
+    "stevearc/oil.nvim",
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("oil").setup {
+        keymaps = {
+          ["<C-i>"] = "actions.select",
+          ["<C-o>"] = "actions.parent",
+        },
+      }
+    end,
+  },
   {
     "CRAG666/betterTerm.nvim",
     config = function()

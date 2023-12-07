@@ -1,0 +1,118 @@
+Andale Mono
+    Andale Mono Regular
+
+Courier New
+    Courier New Bold
+    Courier New Bold Italic
+    Courier New Italic
+    Courier New Regular
+
+DejaVu Sans Mono for Powerline
+    DejaVu Sans Mono for Powerline Bold
+    DejaVu Sans Mono for Powerline Bold Oblique
+    DejaVu Sans Mono for Powerline Book
+    DejaVu Sans Mono for Powerline Oblique
+
+DejaVuSansM Nerd Font Mono
+    DejaVuSansM Nerd Font Mono Bold
+    DejaVuSansM Nerd Font Mono Bold Oblique
+    DejaVuSansM Nerd Font Mono Oblique
+    DejaVuSansM Nerd Font Mono Regular
+
+Fira Code
+    Fira Code Bold
+    Fira Code Light
+    Fira Code Medium
+    Fira Code Regular
+    Fira Code Retina
+    Fira Code SemiBold
+
+Hack Nerd Font Mono
+    Hack Nerd Font Mono Bold
+    Hack Nerd Font Mono Bold Italic
+    Hack Nerd Font Mono Italic
+    Hack Nerd Font Mono Regular
+
+JetBrainsMono Nerd Font Mono
+    JetBrainsMono Nerd Font Mono Bold
+    JetBrainsMono Nerd Font Mono Bold Italic
+    JetBrainsMono Nerd Font Mono ExtraBold
+    JetBrainsMono Nerd Font Mono ExtraBold Italic
+    JetBrainsMono Nerd Font Mono ExtraLight
+    JetBrainsMono Nerd Font Mono ExtraLight Italic
+    JetBrainsMono Nerd Font Mono Italic
+    JetBrainsMono Nerd Font Mono Light
+    JetBrainsMono Nerd Font Mono Light Italic
+    JetBrainsMono Nerd Font Mono Medium
+    JetBrainsMono Nerd Font Mono Medium Italic
+    JetBrainsMono Nerd Font Mono Regular
+    JetBrainsMono Nerd Font Mono SemiBold
+    JetBrainsMono Nerd Font Mono SemiBold Italic
+    JetBrainsMono Nerd Font Mono Thin
+    JetBrainsMono Nerd Font Mono Thin Italic
+
+JetBrainsMonoNL Nerd Font Mono
+    JetBrainsMonoNL Nerd Font Mono Bold
+    JetBrainsMonoNL Nerd Font Mono Bold Italic
+    JetBrainsMonoNL Nerd Font Mono ExtraBold
+    JetBrainsMonoNL Nerd Font Mono ExtraBold Italic
+    JetBrainsMonoNL Nerd Font Mono ExtraLight
+    JetBrainsMonoNL Nerd Font Mono ExtraLight Italic
+    JetBrainsMonoNL Nerd Font Mono Italic
+    JetBrainsMonoNL Nerd Font Mono Light
+    JetBrainsMonoNL Nerd Font Mono Light Italic
+    JetBrainsMonoNL Nerd Font Mono Medium
+    JetBrainsMonoNL Nerd Font Mono Medium Italic
+    JetBrainsMonoNL Nerd Font Mono Regular
+    JetBrainsMonoNL Nerd Font Mono SemiBold
+    JetBrainsMonoNL Nerd Font Mono SemiBold Italic
+    JetBrainsMonoNL Nerd Font Mono Thin
+    JetBrainsMonoNL Nerd Font Mono Thin Italic
+
+Lantinghei TC
+    Lantinghei TC Demibold
+    Lantinghei TC Extralight
+    Lantinghei TC Heavy
+
+Menlo
+    Menlo Bold
+    Menlo Bold Italic
+    Menlo Italic
+    Menlo Regular
+
+MesloLGS NF
+    MesloLGS NF Bold
+    MesloLGS NF Bold Italic
+    MesloLGS NF Italic
+    MesloLGS NF Regular
+
+Monaco
+    Monaco Regular
+
+Osaka
+    Osaka Regular-Mono
+
+PCMyungjo
+    PCMyungjo Regular
+
+PT Mono
+    PT Mono Bold
+    PT Mono Regular
+
+Ubuntu Mono derivative Powerline
+    Ubuntu Mono derivative Powerline Bold
+    Ubuntu Mono derivative Powerline Bold Italic
+    Ubuntu Mono derivative Powerline Italic
+    Ubuntu Mono derivative Powerline Regular
+
+UbuntuMono Nerd Font
+    UbuntuMono Nerd Font Bold
+    UbuntuMono Nerd Font Bold Italic
+    UbuntuMono Nerd Font Italic
+    UbuntuMono Nerd Font Regular
+
+UbuntuMono Nerd Font Mono
+    UbuntuMono Nerd Font Mono Bold
+    UbuntuMono Nerd Font Mono Bold Italic
+    UbuntuMono Nerd Font Mono Italic
+    UbuntuMono Nerd Font Mono Regular
