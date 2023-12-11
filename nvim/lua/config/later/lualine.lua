@@ -154,6 +154,13 @@ local function getLspName()
   return " " .. table_concat(lsp_clients, " ")
 end
 
+local function getLspColor()
+  local next = next
+  local clients = vim.lsp.get_active_clients()
+  if next(clients) == nil then return colors.grey end
+  return colors.green
+end
+
 local dia = {
   "diagnostics",
   color = { bg = colors.dark, fg = colors.white },
@@ -163,7 +170,7 @@ local dia = {
 local lsp = {
   function() return getLspName() end,
   separator = { left = "", right = "" },
-  color = { bg = colors.grey, fg = colors.black },
+  color = { bg = getLspColor(), fg = colors.black },
 }
 
 local overseer = require "overseer.constants"
@@ -229,7 +236,6 @@ require("lualine").setup {
       location,
       dia,
       lsp,
-      diff,
     },
   },
   inactive_sections = {

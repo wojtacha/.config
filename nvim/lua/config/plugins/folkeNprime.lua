@@ -1,4 +1,6 @@
 return {
+  { "folke/neoconf.nvim", cmd = "Neoconf" },
+  { "folke/neodev.nvim" },
   {
     "ThePrimeagen/harpoon",
     event = "VeryLazy",
@@ -10,6 +12,23 @@ return {
     end,
   },
 
+  {
+    "stevearc/overseer.nvim",
+    opts = {},
+    config = function()
+      require("overseer").setup {
+        default_template_prompt = "allow",
+        log = {
+          {
+            type = "file",
+            filename = "overseer.log",
+            level = vim.log.levels.DEBUG, -- or TRACE for max verbosity
+          },
+        },
+        templates = { "builtin", "user.run_script" },
+      }
+    end,
+  },
 
 
   { "norcalli/nvim-colorizer.lua", event = "VeryLazy" }, -- shows colors in code which is cool!

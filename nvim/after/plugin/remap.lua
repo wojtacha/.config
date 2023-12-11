@@ -17,6 +17,7 @@ if not vim.g.vscode then
         s = "[F]ile [s]earch - inside live grep",
         g = "[F]ind [g]it files",
         f = "[F]ind [f]iles",
+        e = "[E]xplore!",
         h = "[F]ind [h]elp",
       },
     },
@@ -33,54 +34,64 @@ if not vim.g.vscode then
   vim.keymap.set("n", "∆", "<C-w>+", { desc = "Resize window left" })
   vim.keymap.set("n", "Ż", "<C-w>-", { desc = "Resize window right" })
 
-  -- Netwr
   vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", { desc = "Toggle Explorer" })
-  -- NeoTree
-  vim.keymap.set("n", "<leader>pv", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-  vim.keymap.set("n", "<F1>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-  vim.keymap.set("n", "<leader>pr", "<cmd>Neotree reveal<cr>", { desc = "Reveal file in Neotree" })
   vim.keymap.set("n", "<F2>", vim.cmd.UndotreeToggle)
-  vim.keymap.set("n", "<F3>", require("telescope").extensions.repo.list, { desc = "Toggle Repo Explorer" })
   vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope commands<cr>", { desc = "Toggle Commands Explorer" })
-  vim.keymap.set("n", "<F4>", function()
-    require("telescope").extensions.project.project {
-      display_type = "full",
-      attach_mappings = function(prompt_bufnr, map)
-        map("i", "<C-j>", require("telescope.actions").move_selection_next)
-        map("i", "<C-k>", require("telescope.actions").move_selection_previous)
-        -- Project key mappings
-        local _actions = require "telescope._extensions.project.actions"
-        map("n", "d", _actions.delete_project)
-        map("n", "r", _actions.rename_project)
-        map("n", "a", _actions.add_project)
-        map("n", "A", _actions.add_project_cwd)
-        map("n", "f", _actions.find_project_files)
-        map("n", "b", _actions.browse_project_files)
-        map("n", "s", _actions.search_in_project_files)
-        map("n", "R", _actions.recent_project_files)
-        map("n", "w", _actions.change_working_directory)
-
-        map("i", "<c-d>", _actions.delete_project)
-        map("i", "<c-r>", _actions.rename_project)
-        map("i", "<c-a>", _actions.add_project)
-        map("i", "<c-A>", _actions.add_project_cwd)
-        map("i", "<c-f>", _actions.find_project_files)
-        map("i", "<c-b>", _actions.browse_project_files)
-        map("i", "<c-s>", _actions.search_in_project_files)
-        map("i", "<c-p>", _actions.recent_project_files)
-        map("i", "<c-w>", _actions.change_working_directory)
-
-        -- Workspace key mappings
-        map("i", "<c-w>", _actions.change_workspace)
-        return true
-      end,
-    }
-  end, { desc = "Toggle Project Explorer", noremap = true, silent = true })
+  -- vim.keymap.set("n", "<F4>", function()
+  --   require("telescope").extensions.project.project {
+  --     display_type = "full",
+  --     attach_mappings = function(prompt_bufnr, map)
+  --       map("i", "<C-j>", require("telescope.actions").move_selection_next)
+  --       map("i", "<C-k>", require("telescope.actions").move_selection_previous)
+  --       -- Project key mappings
+  --       local _actions = require "telescope._extensions.project.actions"
+  --       map("n", "d", _actions.delete_project)
+  --       map("n", "r", _actions.rename_project)
+  --       map("n", "a", _actions.add_project)
+  --       map("n", "A", _actions.add_project_cwd)
+  --       map("n", "f", _actions.find_project_files)
+  --       map("n", "b", _actions.browse_project_files)
+  --       map("n", "s", _actions.search_in_project_files)
+  --       map("n", "R", _actions.recent_project_files)
+  --       map("n", "w", _actions.change_working_directory)
+  --
+  --       map("i", "<c-d>", _actions.delete_project)
+  --       map("i", "<c-r>", _actions.rename_project)
+  --       map("i", "<c-a>", _actions.add_project)
+  --       map("i", "<c-A>", _actions.add_project_cwd)
+  --       map("i", "<c-f>", _actions.find_project_files)
+  --       map("i", "<c-b>", _actions.browse_project_files)
+  --       map("i", "<c-s>", _actions.search_in_project_files)
+  --       map("i", "<c-p>", _actions.recent_project_files)
+  --       map("i", "<c-w>", _actions.change_working_directory)
+  --
+  --       -- Workspace key mappings
+  --       map("i", "<c-w>", _actions.change_workspace)
+  --       return true
+  --     end,
+  --   }
+  -- end, { desc = "Toggle Project Explorer", noremap = true, silent = true })
 
   -- Harpoon
-  vim.keymap.set("n", "<c-e>", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon toggle", noremap = true })
-  vim.keymap.set("n", "<c-q>", require("harpoon.ui").nav_next, { desc = "next Harpoon mark", noremap = true })
-  vim.keymap.set("n", "<c-n>", require("harpoon.mark").add_file, { desc = "add harpoon mark", noremap = true })
+  local harpoon = require "harpoon"
+  vim.keymap.set(
+    { "n", "i", "x" },
+    "<C-n>",
+    function() harpoon:list():append() end,
+    { desc = "add harpoon mark", noremap = true }
+  )
+  vim.keymap.set(
+    { "n", "i", "x" },
+    "<C-e>",
+    function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+    { desc = "Toggle harpoon menu", noremap = true }
+  )
+  vim.keymap.set(
+    { "n", "i", "x" },
+    "<C-q>",
+    function() harpoon:list():next() end,
+    { desc = "next Harpoon mark", noremap = false }
+  )
 
   -- [[ Basic Keymaps ]]
   -- Keymaps for better default experience
@@ -90,7 +101,7 @@ if not vim.g.vscode then
   -- Remap for dealing with word wrap
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-  vim.keymap.set("i", "kj", "<C-[>", { desc = "yet another esc", noremap = true })
+  vim.keymap.set("i", "kj", "<Esc>", { desc = "yet another esc", noremap = true })
 
   vim.keymap.set(
     "n",
@@ -262,13 +273,13 @@ if not vim.g.vscode then
       )
       vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "type_definition" })
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, buffer = ev.buf, desc = "rename" })
-      -- vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code_action" })
-      vim.keymap.set(
-        { "n", "v" },
-        "<leader>ca",
-        "<cmd>Lspsaga code_action<cr>",
-        { buffer = ev.buf, desc = "code_action" }
-      )
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code_action" })
+      --     vim.keymap.set(
+      --       { "n", "v" },
+      --       "<leader>ca",
+      --       "<cmd>Lspsaga code_action<cr>",
+      --       { buffer = ev.buf, desc = "code_action" }
+      --     )
     end,
   })
   vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Jump down half page and center" })
