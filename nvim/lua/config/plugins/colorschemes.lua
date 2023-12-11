@@ -3,7 +3,6 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = true,
-   
   },
   {
     "navarasu/onedark.nvim",

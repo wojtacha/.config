@@ -4,4 +4,5 @@ local treesitter = {
 }
 
 local playground = { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" }
+
 return { treesitter, playground }

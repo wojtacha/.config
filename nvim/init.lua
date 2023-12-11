@@ -179,9 +179,6 @@ else
   require "config.later"
   require("mini.surround").setup {}
 
-  local telescope = require "telescope"
-  telescope.load_extension "repo"
-  telescope.load_extension "project"
 
   vim.api.nvim_create_user_command("WatchRun", function()
     local overseer = require "overseer"

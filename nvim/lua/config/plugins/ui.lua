@@ -1,5 +1,11 @@
 return {
   {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons"},
+  },
+  { "nvim-pack/nvim-spectre", cmd = "Spectre" }, -- sophisticated search and replace tool
+  { "kevinhwang91/nvim-bqf", ft = "qf" }, -- Quickfix window with preview
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
@@ -10,8 +16,44 @@ return {
       registers = true,
     } },
   },
-  { "folke/neoconf.nvim", cmd = "Neoconf" },
-  { "folke/neodev.nvim" },
+  {
+    "nvim-tree/nvim-web-devicons",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-web-devicons").set_icon {
+        dart = {
+          icon = " ",
+          color = "#27A0E9",
+          cterm_color = "65",
+          name = "Dart",
+        },
+        ruby = {
+          icon = " ",
+          color = "#990008",
+          cterm_color = "65",
+          name = "Ruby",
+        },
+        gradle = {
+          icon = " ",
+          color = "#6EA711",
+          cterm_color = "65",
+          name = "Gradle",
+        },
+        go = {
+          icon = "󰟓 ",
+          color = "#2740E9",
+          cterm_color = "65",
+          name = "Go",
+        },
+        mod = {
+          icon = "󰟓 ",
+          color = "#911100",
+          cterm_color = "65",
+          name = "mod",
+        },
+      }
+    end,
+  },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
