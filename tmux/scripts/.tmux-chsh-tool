@@ -20,6 +20,7 @@ cp
 rm
 rename
 jq
+fzf
 cat
 ssh
 cargo

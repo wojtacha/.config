@@ -212,10 +212,10 @@ require("lualine").setup {
         label = "", -- Prefix for task counts
         colored = true, -- Color the task icons and counts
         symbols = {
-          [overseer.STATUS.FAILURE] = "F:",
-          [overseer.STATUS.CANCELED] = "C:",
-          [overseer.STATUS.SUCCESS] = "S:",
-          [overseer.STATUS.RUNNING] = "R:",
+          [overseer.STATUS.FAILURE] = "FAILURE:",
+          [overseer.STATUS.CANCELED] = "CANCELED:",
+          [overseer.STATUS.SUCCESS] = "SUCCESS:",
+          [overseer.STATUS.RUNNING] = "RUNNING:",
         },
         unique = false, -- Unique-ify non-running task count by name
         name = nil, -- List of task names to search for

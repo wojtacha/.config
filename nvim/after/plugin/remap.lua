@@ -28,12 +28,9 @@ if not vim.g.vscode then
   vim.keymap.set("n", "<leader>fb", telescope.buffers, {})
   vim.keymap.set("n", "<leader>fh", telescope.help_tags, {})
 
-  -- this is weird but on polish mac keyboard this is how to map <A-h/l>
-  vim.keymap.set("n", "ķ", "<C-w>>", { desc = "Resize window left" })
-  vim.keymap.set("n", "ł", "<C-w><", { desc = "Resize window right" })
-  vim.keymap.set("n", "∆", "<C-w>+", { desc = "Resize window left" })
-  vim.keymap.set("n", "Ż", "<C-w>-", { desc = "Resize window right" })
-
+  -- Moving highlighted selections this is weird but on polish mac keyboard this is how to map <A-h/l>
+  vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move block of code up" })
+  vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move block of code down" })
   vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", { desc = "Toggle Explorer" })
   vim.keymap.set("n", "<F2>", vim.cmd.UndotreeToggle)
   vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope commands<cr>", { desc = "Toggle Commands Explorer" })
@@ -70,24 +67,44 @@ if not vim.g.vscode then
   --       return true
   --     end,
   --   }
-  -- end, { desc = "Toggle Project Explorer", noremap = true, silent = true })
+  -- end, { desc = "Toggle Project Exporer", noremap = true, silent = true })
 
   -- Harpoon
   local harpoon = require "harpoon"
+
+  -- local conf = require("telescope.config").values
+  -- local function toggle_telescope(harpoon_files)
+  --   local file_paths = {}
+  --   for _, item in ipairs(harpoon_files.items) do
+  --     table.insert(file_paths, item.value)
+  --   end
+  --   require("telescope.pickers")
+  --     .new({initial_mode = 'normal'}, {
+  --       prompt_title = "Harpoon",
+  --       finder = require("telescope.finders").new_table {
+  --         results = file_paths,
+  --       },
+  --       previewer = conf.file_previewer {},
+  --       sorter = conf.generic_sorter {},
+  --     })
+  --     :find()
+  -- end
+  -- vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
+
   vim.keymap.set(
-    { "n", "i", "x" },
+    { "n" },
     "<C-n>",
     function() harpoon:list():append() end,
     { desc = "add harpoon mark", noremap = true }
   )
   vim.keymap.set(
-    { "n", "i", "x" },
+    { "n" },
     "<C-e>",
     function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
     { desc = "Toggle harpoon menu", noremap = true }
   )
   vim.keymap.set(
-    { "n", "i", "x" },
+    { "n" },
     "<C-q>",
     function() harpoon:list():next() end,
     { desc = "next Harpoon mark", noremap = false }
@@ -116,11 +133,6 @@ if not vim.g.vscode then
     function() require("config.later.formatter").format() end,
     { desc = "Format code with formatter", noremap = true }
   )
-  -- Navigator
-  vim.keymap.set({ "n", "v" }, "<C-l>", "<C-w>l", { desc = "Go to right window", noremap = true })
-  vim.keymap.set({ "n", "v" }, "<C-k>", "<C-w>k", { desc = "Go to up window", noremap = true })
-  vim.keymap.set({ "n", "v" }, "<C-j>", "<C-w>j", { desc = "Go to down window", noremap = true })
-  vim.keymap.set({ "n", "v" }, "<C-h>", "<C-w>h", { desc = "Go to left window", noremap = true })
 
   vim.keymap.set({ "n", "x" }, "x", [["_x]], { desc = "x command send char to black hole register", noremap = true })
   vim.keymap.set(
@@ -282,35 +294,9 @@ if not vim.g.vscode then
       --     )
     end,
   })
+
   vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Jump down half page and center" })
   vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz", { desc = "Jump up half page and center" })
   vim.keymap.set("n", "n", "nzz", { desc = "Next search occurence and focus view" })
   vim.keymap.set("n", "N", "Nzz", { desc = "Previous search occurence and focus view" })
-
-  --====== TERMINAL
-  local betterTerm = require "betterTerm"
-  wk.register {
-    ["<leader>"] = {
-      t = {
-        name = "+terminal",
-        D = "[D]eclaration",
-        t = "[t]oggle",
-        s = "[s]elect",
-      },
-    },
-  }
-  -- toggle firts term
-  vim.keymap.set({ "n", "t" }, "<leader>tt", betterTerm.open, { desc = "Open terminal" })
-  -- Select term focus
-  vim.keymap.set({ "n" }, "<leader>ts", betterTerm.select, { desc = "Select terminal" })
-  -- Create new term
-  local current = 2
-  vim.keymap.set({ "n" }, "<leader>tn", function()
-    betterTerm.open(current)
-    current = current + 1
-  end, { desc = "New terminal" })
-  vim.keymap.set({ "t" }, "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Go to right window", noremap = true })
-  vim.keymap.set({ "t" }, "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Go to up window", noremap = true })
-  vim.keymap.set({ "t" }, "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Go to down window", noremap = true })
-  vim.keymap.set({ "t" }, "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Go to left window", noremap = true })
 end

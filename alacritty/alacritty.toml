@@ -1,0 +1,29 @@
+import = [
+	"~/.config/alacritty/keybindings.toml",
+	# "~/.config/alacritty/rose-pine/dist/rose-pine-moon.toml",
+	# "~/.config/alacritty/darcula/dracula.toml",
+	# "~/.config/alacritty/darcula/tokyonight.toml"
+]
+
+[window]
+dynamic_padding = true
+decorations = "buttonless"
+opacity =  0.8
+startup_mode = "Windowed"
+title = "Alacritty"
+dynamic_title = true
+
+[scrolling]
+history = 10_000
+
+[font]
+size = 15
+normal = { family = "FiraMono Nerd Font Mono", style = "Regular" }
+bold = { style = "Medium" }
+italic = { style = "Italic" }
+bold_italic = { style = "Bold Italic" }
+
+[cursor]
+blink_interval = 700
+style = { shape = "Block", blinking = "Off" }
+

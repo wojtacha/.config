@@ -1,6 +1,9 @@
 return {
   { "folke/neoconf.nvim", cmd = "Neoconf" },
-  { "folke/neodev.nvim" },
+  {
+    "folke/neodev.nvim",
+    config = function() require("neodev").setup {} end,
+  },
   {
     "ThePrimeagen/harpoon",
     event = "VeryLazy",
@@ -14,6 +17,7 @@ return {
 
   {
     "stevearc/overseer.nvim",
+    dependencies = { "stevearc/dressing.nvim" },
     opts = {},
     config = function()
       require("overseer").setup {
@@ -30,24 +34,35 @@ return {
     end,
   },
 
-
   { "norcalli/nvim-colorizer.lua", event = "VeryLazy" }, -- shows colors in code which is cool!
 
-  { "echasnovski/mini.nvim", version = "*" }, -- echasnovski jest przechuj
+  { "echasnovski/mini.nvim", version = "*", config = function() require("mini.surround").setup {} end }, -- echasnovski jest przechuj
 
   { "windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end }, -- when you press "{" sign "}" appears automagically
 
   { "mbbill/undotree", event = "VeryLazy" },
 
-
-
   { "vimwiki/vimwiki", event = "VeryLazy" }, -- good plugin for notes cheatsheet diary todo
+
   {
     "stevearc/oil.nvim",
     opts = {},
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("oil").setup {
+        default_file_explorer = true,
+        -- Id is automatically added at the beginning, and name at the end
+        -- See :help oil-columns
+        columns = {
+          "icon",
+          -- "permissions",
+          -- "size",
+          -- "mtime",
+        },
+        view_options = {
+          -- Show files and directories that start with "."
+          show_hidden = false,
+        },
         keymaps = {
           ["<CR>"] = "actions.select",
           ["<C-s>"] = "actions.select_vsplit",
@@ -61,12 +76,34 @@ return {
           ["."] = "actions.cd",
           ["~"] = "actions.tcd",
           ["gs"] = "actions.change_sort",
-          ["gx"] = "actions.open_external",
           ["H"] = "actions.toggle_hidden",
           ["g\\"] = "actions.toggle_trash",
         },
       }
     end,
+  },
+  {
+    -- config = function()
+    "chrishrb/gx.nvim",
+    event = { "BufEnter" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+    -- config = function()
+    --   require("gx").setup {
+    --     open_browser_app = "os_specific", -- specify your browser app; default for macOS is "open", Linux "xdg-open" and Windows "powershell.exe"
+    --     open_browser_args = { "--background" }, -- specify any arguments, such as --background for macOS' "open".
+    --     handlers = {
+    --       plugin = true, -- open plugin links in lua (e.g. packer, lazy, ..)
+    --       github = true, -- open github issues
+    --       brewfile = true, -- open Homebrew formulaes and casks
+    --       package_json = true, -- open dependencies from package.json
+    --       search = true, -- search the web/selection on the web if nothing else is found
+    --     },
+    --     handler_options = {
+    --       search_engine = "https://search.brave.com/search?q=", -- or you can pass in a custom search engine
+    --     },
+    --   }
+    -- end,
   },
 
   {
@@ -79,29 +116,15 @@ return {
           ---Add comment on the line below
           below = "gco",
           ---Add comment at the end of line
-          eol = "gcA",
+          eol = "gcA", 
         },
       }
     end,
   },
 
-  {
-    "CRAG666/betterTerm.nvim",
-    config = function()
-      require("betterTerm").setup {
-        prefix = "Term_",
-        startInserted = false,
-        position = "bot",
-        size = 18,
-      }
-    end,
-  },
+  { "tpope/vim-dadbod" },
   {
     "kristijanhusak/vim-dadbod-ui",
-    dependencies = {
-      { "tpope/vim-dadbod", lazy = true },
-      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
-    },
     cmd = {
       "DBUI",
       "DBUIToggle",
@@ -113,6 +136,7 @@ return {
       vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
+  { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" } },
   {
     "iamcco/markdown-preview.nvim",
     build = "cd app && npm install",

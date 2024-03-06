@@ -3,4 +3,5 @@
 --  See `:help 'clipboard'`
 vim.opt.clipboard = "unnamedplus"
 -- Set leader key
+-- This needs to be set before lazy.nvim
 vim.g.mapleader = " "

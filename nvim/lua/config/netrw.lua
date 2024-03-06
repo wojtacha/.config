@@ -1,5 +1,3 @@
-TODO
-
 -- Netew winsize
 -- @default = 20
 vim.g.netrw_winsize = 20
