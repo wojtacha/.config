@@ -1,0 +1,176 @@
+[keyboard]
+bindings = [
+  { key= "PageUp",    mods= "Shift",         action= "ScrollPageUp",   mode= "~Alt"       },
+  { key= "PageDown",  mods= "Shift",         action= "ScrollPageDown", mode= "~Alt"       },
+  { key= "Home",      mods= "Shift",         action= "ScrollToTop",    mode= "~Alt"       },
+  { key= "End",       mods= "Shift",         action= "ScrollToBottom", mode= "~Alt"       },
+  { key= "Space",     mods= "Control",       mode= "~Search",   action= "ToggleViMode" },
+  { key= "N",         mods= "Command",       action= "None" },
+
+  { key= "T",  	    mods= "Command",       chars= "\u0001\u0063" },
+  { key= "W",  	    mods= "Command",       chars= "\u0001\u0077" },
+  { key= "F",  	    mods= "Command",       chars= "\u0001\u0006" },
+  { key= "Semicolon", mods= "Command",       chars= "\u0001=" },
+  { key= "S",         mods= "Command",       chars= "\u001b\u003a\u0077\u000a" } ,
+  { key= "H",         mods= "Command",       chars= "\u0001\u0009" } ,
+
+  # { key= "Key1",      mods= "Command",       chars= "\u0011" }, to jest jakis ciekawy ls 
+  # { key= "Key2",      mods= "Command",       chars= "\u0012" }, to jest chowanie historii
+  
+  { key= "Key1",      mods= "Command",       chars= "\u0001\u0031" },
+  { key= "Key2",      mods= "Command",       chars= "\u0001\u0032" },
+  { key= "Key3",      mods= "Command",       chars= "\u0001\u0033" },
+  { key= "Key4",      mods= "Command",       chars= "\u0001\u0034" },
+  { key= "Key5",      mods= "Command",       chars= "\u0001\u0035" },
+  { key= "Key6",      mods= "Command",       chars= "\u0001\u0036" },
+  { key= "Key7",      mods= "Command",       chars= "\u0001\u0037" },
+  { key= "Key8",      mods= "Command",       chars= "\u0001\u0038" },
+  { key= "Key9",      mods= "Command",       chars= "\u0001\u0039" },
+
+
+  # { key= "H",         mods= "Command | Shift", chars= "\u0001\u001b5b313b3644" },
+  # { key= "J",         mods= "Command | Shift", chars= "\u0001\u001b5b313b3643" },
+  # { key= "K",         mods= "Command | Shift", chars= "\u0001\u001b5b313b3641" },
+  # { key= "L",         mods= "Command | Shift", chars= "\u0001\u001b5b313b3642" }
+]
+# [[key_bindings]]
+# key = "PageUp"
+# mods = "Shift"21
+# action = "ScrollPageUp"
+# mode = "~Alt"
+#
+# [[key_bindings]]
+# key = "PageDown"
+# mods = "Shift"
+# action = "ScrollPageDown"
+# mode = "~Alt"
+#
+# [[key_bindings]]
+# key = "Home"
+# mods = "Shift"
+# action = "ScrollToTop"
+# mode = "~Alt"
+#
+# [[key_bindings]]
+# key = "End"
+# mods = "Shift"
+# action = "ScrollToBottom"
+# mode = "~Alt"
+#
+# [[key_bindings]]
+# key = "T"
+# mods = "Command"
+# chars = "\u0001c"
+#
+# [[key_bindings]]
+# key = "W"
+# mods = "Command"
+# chars = "\u0001w"
+#
+# [[key_bindings]]
+# key = "F"
+# mods = "Command"
+# chars = "\u0001"
+#
+# [[key_bindings]]
+# key = "Semicolon"
+# mods = "Command"
+# chars = "\u0001"
+#
+# [[key_bindings]]
+# key = "S"
+# mods = "Command"
+# chars = """
+# \u001b:w
+# """
+#
+# [[key_bindings]]
+# key = "H"
+# mods = "Command"
+# chars = "\u0001\t"
+#
+# [[key_bindings]]
+# key = "H"
+# mods = "Command|Shift"
+# chars = "\u0001"
+#
+# [[key_bindings]]
+# key = "J"
+# mods = "Command|Shift"
+# chars = "\u00015b313b3643"
+#
+# [[key_bindings]]
+# key = "K"
+# mods = "Command|Shift"
+# chars = "\u00015b313b3641"
+#
+# [[key_bindings]]
+# key = "L"
+# mods = "Command|Shift"
+# chars = "\u00015b313b3642"
+#
+# [[key_bindings]]
+# key = "Key1"
+# mods = "Command"
+# chars = "\u00011"
+#
+# [[key_bindings]]
+# key = "Key2"
+# mods = "Command"
+# chars = "\u00012"
+#
+# [[key_bindings]]
+# key = "Key3"
+# mods = "Command"
+# chars = "\u00013"
+#
+# [[key_bindings]]
+# key = "Key4"
+# mods = "Command"
+# chars = "\u00014"
+#
+# [[key_bindings]]
+# key = "Key5"
+# mods = "Command"
+# chars = "\u00015"
+#
+# [[key_bindings]]
+# key = "Key6"
+# mods = "Command"
+# chars = "\u00016"
+#
+# [[key_bindings]]
+# key = "Key7"
+# mods = "Command"
+# chars = "\u00017"
+#
+# [[key_bindings]]
+# key = "Key8"
+# mods = "Command"
+# chars = "\u00018"
+#
+# [[key_bindings]]
+# key = "Key9"
+# mods = "Command"
+# chars = "\u00019"
+#
+# [[key_bindings]]
+# key = "Space"
+# mods = "Control"
+# mode = "~Search"
+# action = "ToggleViMode"
+#
+# [[key_bindings]]
+# key = "Key6"
+# mods = "Control"
+# chars = "\u001e"
+#
+# [[key_bindings]]
+# key = "Key9"
+# mods = "Command"
+# action = "ResetFontSize"
+#
+# [[key_bindings]]
+# key = "N"
+# mods = "Command"
+# action = "None"

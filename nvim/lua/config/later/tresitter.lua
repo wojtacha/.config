@@ -6,7 +6,9 @@ require("nvim-treesitter.configs").setup {
     "vimdoc",
     "query",
     "javascript",
+    "javascriptreact",
     "typescript",
+    "typescriptreact",
     "markdown_inline",
     "markdown",
     "json",
@@ -18,6 +20,8 @@ require("nvim-treesitter.configs").setup {
     "regex",
   },
   modules = {},
+  incremental_selection = { enable = true },
+  textobjects = { enable = true },
   sync_install = false,
   auto_install = true,
   playground = {

@@ -1,5 +1,5 @@
 require('lint').linters_by_ft = {
-  yaml = {'actionlint'},
+  -- yaml = {'actionlint', 'ansible_lint'},
   lua = {'luacheck'},
   ruby = {'rubocop'}
 }

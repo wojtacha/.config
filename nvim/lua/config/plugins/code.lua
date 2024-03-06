@@ -1,4 +1,4 @@
-local all_cmp_filetypes = { "lua", "dart", "swift", "ruby", "rust" }
+local all_cmp_filetypes = { "lua", "dart","go", "swift", "ruby", "rust" }
 return {
   {
     "VonHeikemen/lsp-zero.nvim",
@@ -27,32 +27,28 @@ return {
 
   { "mhartington/formatter.nvim", cmd = "Format" },
 
+  { "mfussenegger/nvim-dap" },
+
   { "mfussenegger/nvim-lint" },
+
+  { "mfussenegger/nvim-jdtls" },
 
   { "RRethy/vim-illuminate", event = "VeryLazy" }, -- Vim plugin for automatically highlighting other uses of the word under the cursor
   { "ms-jpq/coq_nvim", branch = "coq", lazy = true },
-  -- {
-  --   "ray-x/go.nvim",
-  --   dependencies = { -- optional packages
-  --     "ray-x/guihua.lua",
-  --     "neovim/nvim-lspconfig",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  --   config = function() require("go").setup() end,
-  --   event = { "CmdlineEnter" },
-  --   ft = { "go", "gomod" },
-  --   build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-  -- },
-  -- {
-  --   "nvimdev/lspsaga.nvim",
-  --   config = function() require("lspsaga").setup { lightbulb = { enable = false } } end,
-  --   ft = { "go", "lua" },
-  --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter", -- optional
-  --     "nvim-tree/nvim-web-devicons", -- optional
-  --   },
-  -- },
-  { "mfussenegger/nvim-jdtls" },
+
+  {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function() require("go").setup() end,
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
+  { "charlespascoe/vim-go-syntax", ft = { "go", "gomod" } },
 
   {
     "stevearc/conform.nvim",
@@ -73,7 +69,8 @@ return {
         ["typescript.tsx"] = { { "prettierd", "prettier" } },
         sh = { "shellcheck", "shfmt" },
         zsh = { "prettier" },
-	json = { "fixjson" },
+        json = { "fixjson" },
+        xml = { "xmllint" },
         ["_"] = { "trim_whitespace" },
       },
       formatters = {
@@ -106,5 +103,10 @@ return {
         },
       }
     end,
+  },
+  {
+    "sourcegraph/sg.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    config = function() require("sg").setup {} end,
   },
 }

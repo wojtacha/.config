@@ -7,14 +7,14 @@ return {
   {
     "navarasu/onedark.nvim",
     lazy = true,
-    priority = 1001,
     name = "onedark",
   },
-  { "ray-x/aurora", name = "aurora" },
+  { "ray-x/aurora", name = "aurora", lazy = true },
+  { "fugalh/desert.vim", name = "desert", lazy = true },
+  { "christianchiarulli/nvcode-color-schemes.vim", name = "nvcode", lazy = true },
   {
     "AlexvZyl/nordic.nvim",
     lazy = true,
-    priority = 1004,
     config = function() require("nordic").load() end,
     name = "nordic",
   },
@@ -26,13 +26,24 @@ return {
         --- @usage 'auto'|'main'|'moon'|'dawn'
         variant = "auto",
         --- @usage 'main'|'moon'|'dawn'
-        dark_variant = "moon",
+        dark_variant = "main",
         bold_vert_split = false,
+        dim_inactive_windows = false,
+        extend_background_behind_borders = true,
         dim_nc_background = true,
         disable_background = false,
         disable_float_background = true,
         disable_italics = false,
-
+        enable = {
+          terminal = true,
+          legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+          migrations = true, -- Handle deprecated options automatically
+        },
+        styles = {
+          bold = true,
+          italic = true,
+          transparency = false,
+        },
         --- @usage string hex value or named color from rosepinetheme.com/palette
         groups = {
           background = "base",
@@ -73,7 +84,7 @@ return {
           -- By default each group adds to the existing config.
           -- If you only want to set what is written in this config exactly,
           -- you can set the inherit option:
-          Search = { bg = "gold", inherit = false },
+          Search = { bg = "pine", inherit = false },
         },
       }
     end,
@@ -85,5 +96,6 @@ return {
     lazy = true,
     priority = 1005,
     opts = {},
+    config = function() require "tokyonight" end,
   },
 }
