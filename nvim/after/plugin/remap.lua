@@ -6,107 +6,52 @@ if not vim.g.vscode then
   local wk = require "which-key"
 
   local telescope = require "telescope.builtin"
-  local telescope_state = require "telescope.state"
-  local last_search = nil
 
-  wk.register {
-    ["<leader>"] = {
-      f = {
-        name = "+find",
-        b = "[F]ind open [b]uffers",
-        s = "[F]ile [s]earch - inside live grep",
-        g = "[F]ind [g]it files",
-        f = "[F]ind [f]iles",
-        e = "[E]xplore!",
-        h = "[F]ind [h]elp",
-      },
-    },
+  wk.add {
+    { "<leader>f", group = "find" },
+    { "<leader>fb", desc = "[F]ind open [b]uffers" },
+    { "<leader>ff", desc = "[F]ind [f]iles" },
+    { "<leader>fg", desc = "[F]ind [g]it branches" },
+    { "<leader>fh", desc = "[F]ind [h]elp" },
+    { "<leader>fs", desc = "[F]ile [s]earch - inside live grep" },
+    { "<leader>fw", desc = "[F]ind [w]ord" },
   }
-  vim.keymap.set("n", "<leader>ff", telescope.find_files, {})
-  vim.keymap.set("n", "<leader>fg", telescope.git_files, {})
-  vim.keymap.set("n", "<leader>fs", telescope.live_grep, {})
-  vim.keymap.set("n", "<leader>fb", telescope.buffers, {})
-  vim.keymap.set("n", "<leader>fh", telescope.help_tags, {})
+  vim.keymap.set("n", "<leader>ff", telescope.find_files, { desc = "[F]ind [f]iles" })
+  vim.keymap.set("n", "<leader>fw", telescope.grep_string, { desc = "[F]ind [w]ord" })
+  vim.keymap.set("n", "<leader>fg", telescope.git_branches, { desc = "[F]ind [g]it branches" })
+  vim.keymap.set("n", "<leader>fs", telescope.live_grep, { desc = "[F]ile [s]earch - inside live grep" })
+  vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "[F]ind open [b]uffers" })
+  vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "[F]ind [h]elp" })
 
   -- Moving highlighted selections this is weird but on polish mac keyboard this is how to map <A-h/l>
   vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move block of code up" })
   vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move block of code down" })
+  -- vim.keymap.set("n", "<leader>e", "<cmd>Explore<cr>", { desc = "Toggle Explorer" })
   vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", { desc = "Toggle Explorer" })
   vim.keymap.set("n", "<F2>", vim.cmd.UndotreeToggle)
   vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope commands<cr>", { desc = "Toggle Commands Explorer" })
-  -- vim.keymap.set("n", "<F4>", function()
-  --   require("telescope").extensions.project.project {
-  --     display_type = "full",
-  --     attach_mappings = function(prompt_bufnr, map)
-  --       map("i", "<C-j>", require("telescope.actions").move_selection_next)
-  --       map("i", "<C-k>", require("telescope.actions").move_selection_previous)
-  --       -- Project key mappings
-  --       local _actions = require "telescope._extensions.project.actions"
-  --       map("n", "d", _actions.delete_project)
-  --       map("n", "r", _actions.rename_project)
-  --       map("n", "a", _actions.add_project)
-  --       map("n", "A", _actions.add_project_cwd)
-  --       map("n", "f", _actions.find_project_files)
-  --       map("n", "b", _actions.browse_project_files)
-  --       map("n", "s", _actions.search_in_project_files)
-  --       map("n", "R", _actions.recent_project_files)
-  --       map("n", "w", _actions.change_working_directory)
-  --
-  --       map("i", "<c-d>", _actions.delete_project)
-  --       map("i", "<c-r>", _actions.rename_project)
-  --       map("i", "<c-a>", _actions.add_project)
-  --       map("i", "<c-A>", _actions.add_project_cwd)
-  --       map("i", "<c-f>", _actions.find_project_files)
-  --       map("i", "<c-b>", _actions.browse_project_files)
-  --       map("i", "<c-s>", _actions.search_in_project_files)
-  --       map("i", "<c-p>", _actions.recent_project_files)
-  --       map("i", "<c-w>", _actions.change_working_directory)
-  --
-  --       -- Workspace key mappings
-  --       map("i", "<c-w>", _actions.change_workspace)
-  --       return true
-  --     end,
-  --   }
-  -- end, { desc = "Toggle Project Exporer", noremap = true, silent = true })
-
   -- Harpoon
   local harpoon = require "harpoon"
 
-  -- local conf = require("telescope.config").values
-  -- local function toggle_telescope(harpoon_files)
-  --   local file_paths = {}
-  --   for _, item in ipairs(harpoon_files.items) do
-  --     table.insert(file_paths, item.value)
-  --   end
-  --   require("telescope.pickers")
-  --     .new({initial_mode = 'normal'}, {
-  --       prompt_title = "Harpoon",
-  --       finder = require("telescope.finders").new_table {
-  --         results = file_paths,
-  --       },
-  --       previewer = conf.file_previewer {},
-  --       sorter = conf.generic_sorter {},
-  --     })
-  --     :find()
-  -- end
-  -- vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
-
-  vim.keymap.set(
-    { "n" },
-    "<C-n>",
-    function() harpoon:list():append() end,
-    { desc = "add harpoon mark", noremap = true }
-  )
+  vim.keymap.set({ "n" }, "<C-n>", function() harpoon:list():add() end, { desc = "add harpoon mark", noremap = true })
   vim.keymap.set(
     { "n" },
     "<C-e>",
     function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
     { desc = "Toggle harpoon menu", noremap = true }
   )
+
   vim.keymap.set(
     { "n" },
-    "<C-q>",
+    "<C-l>",
     function() harpoon:list():next() end,
+    { desc = "next Harpoon mark", noremap = false }
+  )
+
+  vim.keymap.set(
+    { "n" },
+    "<C-h>",
+    function() harpoon:list():prev() end,
     { desc = "next Harpoon mark", noremap = false }
   )
 
@@ -120,19 +65,12 @@ if not vim.g.vscode then
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
   vim.keymap.set("i", "kj", "<Esc>", { desc = "yet another esc", noremap = true })
 
-  vim.keymap.set(
-    "n",
-    "<leader>cf",
-    function() require("conform").format { async = true, lsp_fallback = true } end,
-    { desc = "Format code with formatter", noremap = true }
-  )
-
-  vim.keymap.set(
-    "n",
-    "<leader>rf",
-    function() require("config.later.formatter").format() end,
-    { desc = "Format code with formatter", noremap = true }
-  )
+  -- vim.keymap.set(
+  --   "n",
+  --   "<leader>cf",
+  --   function() require("conform").format { async = true, lsp_fallback = true } end,
+  --   { desc = "Format code with formatter", noremap = true }
+  -- )
 
   vim.keymap.set({ "n", "x" }, "x", [["_x]], { desc = "x command send char to black hole register", noremap = true })
   vim.keymap.set(
@@ -148,44 +86,40 @@ if not vim.g.vscode then
     { desc = "Unhighlight search occurences", silent = true, noremap = true }
   )
 
+  vim.keymap.set("n", "<leader>gg", vim.cmd.Git, { desc = "Toggle git window", noremap = true })
+  vim.keymap.set({ "n", "v" }, "<leader>gb", "<cmd>Git branch<cr>", { desc = "Toggle git blame", noremap = true })
+  vim.keymap.set({ "n", "v" }, "<leader>gl", "<cmd>Git blame<cr>", { desc = "Toggle git blame", noremap = true })
+
   vim.keymap.set(
-    { "n", "v" },
-    "<leader>gg",
-    function() require("lazygit").lazygit() end,
-    { desc = "LazyGit", noremap = true }
+    { "n" },
+    "<leader>w",
+    function() require("nvim-window").pick() end,
+    { desc = "Pick Window", noremap = true }
   )
-  vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Toggle git blame", noremap = true })
-  vim.keymap.set(
-    { "n", "v" },
-    "<leader>gb",
-    "<cmd>ToggleBlame window<cr>",
-    { desc = "Toggle git blame", noremap = true }
-  )
-  wk.register {
-    ["<leader>"] = {
-      g = {
-        name = "+git",
-        b = "Git [b]lame",
-        s = "Git [s]tages - tpope",
-        g = "Git lazy[g]it",
-      },
-    },
+
+  wk.add {
+    { "<leader>g", group = "[g]it" },
+    { "<leader>gb", desc = "Git [b]ranch" },
+    { "<leader>gl", desc = "Git b[l]ame" },
+    { "<leader>gg", desc = "Git [s]tages - tpope" },
+    { "<leader>w", desc = "[w]indow select" },
+  }
+
+  vim.keymap.set({ "n", "x" }, "ga", "<cmd>EasyAlign<cr>", { desc = "Easy Align from junegunn", noremap = false })
+  wk.add {
+    { "ga", desc = "Easy Align" },
   }
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 
-  wk.register {
-    ["<leader>"] = {
-      d = {
-        name = "[D]iagnostic",
-        i = "[d]iagnostic [i]nfo",
-        l = "[d]iagnostic [l]ist",
-        h = "[d]iagnostic [h]ide",
-        n = "[d]iagnostic [n]ext also ]d",
-        p = "[d]iagnostic [p]rev also [d",
-      },
-    },
+  wk.add {
+    { "<leader>d", group = "[d]iagnostic" },
+    { "<leader>dh", desc = "[d]iagnostic [h]ide" },
+    { "<leader>di", desc = "[d]iagnostic [i]nfo" },
+    { "<leader>dl", desc = "[d]iagnostic [l]ist" },
+    { "<leader>dn", desc = "[d]iagnostic [n]ext also ]d" },
+    { "<leader>dp", desc = "[d]iagnostic [p]rev also [d" },
   }
   vim.keymap.set(
     "n",
@@ -201,16 +135,8 @@ if not vim.g.vscode then
   vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "[d]iagnostic [n]ext" })
   vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "[d]iagnostic [p]rev" })
 
-  -- Illuminate
-  wk.register {
-    g = {
-      name = "[g]o",
-      n = "[g]o to [n]ext underline reference",
-      N = "[g]o to [p]revious underline reference",
-    },
-  }
-  vim.keymap.set("n", "gn", require("illuminate").goto_next_reference, { desc = "Move to next reference" })
-  vim.keymap.set("n", "gp", require("illuminate").goto_prev_reference, { desc = "Move to previous reference" })
+  vim.keymap.set("n", "<C-j>", "<cmd>cn<cr>", { desc = "qf next" })
+  vim.keymap.set("n", "<C-k>", "<cmd>cp<cr>", { desc = "qf prev" })
 
   -- Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
   vim.api.nvim_create_autocmd("LspAttach", {
@@ -221,35 +147,14 @@ if not vim.g.vscode then
 
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
-      wk.register {
-        g = {
-          name = "LSP",
-          D = "[D]eclaration",
-          d = "[d]efinition",
-        },
-        ["<leader>"] = {
-          D = "type [D]efinition",
-          l = {
-            name = "+LSP",
-            i = "[i]mplementation",
-            D = "[D]eclaration or gD",
-            d = "[d]efinition or gd",
-            r = "[r]eferences or gr",
-          },
-          sh = "LSP [s]ignature [h]elp",
-          r = {
-            name = "+re",
-            n = "LSP +[r]e[n]ame",
-          },
-          wl = "LSP [w]orkspace [f]olders",
-          c = {
-            name = "+code",
-            a = "[c]ode [a]ctions",
-            f = "[c]ode [f]ormat",
-          },
-          K = "LSP hover",
-        },
+      wk.add {
+        { "<leader>g", group = "[g]it" },
+        { "<leader>gb", desc = "Git [b]lame" },
+        { "<leader>gg", desc = "Git lazy[g]it" },
+        { "<leader>gs", desc = "Git [s]tages - tpope" },
+        { "<leader>w", desc = "[w]indow select" },
       }
+
       vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "declaration" })
       vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { buffer = ev.buf, desc = "definition" })
       vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, { buffer = ev.buf, desc = "references" })
@@ -286,17 +191,19 @@ if not vim.g.vscode then
       vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "type_definition" })
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, buffer = ev.buf, desc = "rename" })
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code_action" })
-      --     vim.keymap.set(
-      --       { "n", "v" },
-      --       "<leader>ca",
-      --       "<cmd>Lspsaga code_action<cr>",
-      --       { buffer = ev.buf, desc = "code_action" }
-      --     )
     end,
   })
 
   vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Jump down half page and center" })
   vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz", { desc = "Jump up half page and center" })
+  vim.keymap.set({ "n" }, "*", "*zz", { desc = "Jump to next search occurence and center" })
+  vim.keymap.set({ "n" }, "#", "#zz", { desc = "Jump to previous search occurence and center" })
+
+  -- vim.keymap.set({ "n", "v", "i" }, "<C-l>", "<C-w>l")
+  -- vim.keymap.set({ "n", "v", "i" }, "<C-k>", "<C-w>k")
+  -- vim.keymap.set({ "n", "v", "i" }, "<C-j>", "<C-w>j")
+  -- vim.keymap.set({ "n", "v", "i" }, "<C-h>", "<C-w>h")
+
   vim.keymap.set("n", "n", "nzz", { desc = "Next search occurence and focus view" })
   vim.keymap.set("n", "N", "Nzz", { desc = "Previous search occurence and focus view" })
 end

@@ -1,8 +1,6 @@
 require("config.later.lspconfig")
 require("config.later.cmp")
-require("config.later.formatter")
 require("config.later.lualine")
 require("config.later.linters")
-require("config.later.illuminate")
 require("config.later.colorscheme")
 require("config.later.tasks")

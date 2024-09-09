@@ -9,8 +9,6 @@ return {
     lazy = true,
     name = "onedark",
   },
-  { "ray-x/aurora", name = "aurora", lazy = true },
-  { "fugalh/desert.vim", name = "desert", lazy = true },
   { "christianchiarulli/nvcode-color-schemes.vim", name = "nvcode", lazy = true },
   {
     "AlexvZyl/nordic.nvim",

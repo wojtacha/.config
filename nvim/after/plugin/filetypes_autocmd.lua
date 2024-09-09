@@ -13,8 +13,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function() vim.o.filetype = "kotlin" end,
 })
 
--- TODO dlaczego to nie dziala trzeba dodac noice dla messages i au 
---
+-- TODO: dlaczego to nie dziala trzeba dodac noice dla messages i au
+
 local flutter = vim.api.nvim_create_augroup("FlutterExtension", { clear = true })
 
 vim.api.nvim_create_autocmd("BufRead", {

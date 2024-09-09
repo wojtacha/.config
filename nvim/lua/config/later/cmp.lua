@@ -63,36 +63,29 @@ local format = {
 cmp.setup {
   preselect = cmp.PreselectMode.None,
   mapping = {
-    -- ["<C-n>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end,
-    -- ["<C-p>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end,
-    -- ["<cr>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.confirm { select = true }
-    --   else
-    --     fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
-    --   end
-    -- end,
-    -- ["<C-l>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.confirm()
-    --   else
-    --     fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
-    --   end
-    -- end,
-    -- ["<Tab>"] = cmp_action.luasnip_jump_forward(),
-    -- ["<S-Tab>"] = cmp_action.luasnip_jump_backward(),
+    ["<C-n>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ["<C-p>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+    ["<c-y>"] = function(fallback)
+      if cmp.visible() then
+        cmp.confirm { select = true }
+      else
+        fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
+      end
+    end,
+    ["<C-j>"] = cmp_action.luasnip_jump_forward(),
+    ["<C-k>"] = cmp_action.luasnip_jump_backward(),
   },
   sorting = {
     priority_weight = 1,

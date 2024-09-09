@@ -1,9 +1,11 @@
 return {
   { "folke/neoconf.nvim", cmd = "Neoconf" },
+
   {
     "folke/neodev.nvim",
     config = function() require("neodev").setup {} end,
   },
+
   {
     "ThePrimeagen/harpoon",
     event = "VeryLazy",
@@ -11,13 +13,18 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local harpoon = require "harpoon"
-      harpoon:setup()
+      harpoon:setup {
+        settings = {
+          save_on_toggle = true,
+          sync_on_ui_close = true,
+        },
+      }
     end,
   },
 
   {
     "stevearc/overseer.nvim",
-    dependencies = { "stevearc/dressing.nvim" },
+    -- dependencies = { "stevearc/dressing.nvim" },
     opts = {},
     config = function()
       require("overseer").setup {
@@ -60,18 +67,17 @@ return {
           -- "mtime",
         },
         view_options = {
-          -- Show files and directories that start with "."
-          show_hidden = false,
+          show_hidden = true,
         },
+        use_default_keymaps = false,
         keymaps = {
           ["<CR>"] = "actions.select",
           ["<C-s>"] = "actions.select_vsplit",
-          ["<C-h>"] = "actions.select_split",
           ["<C-t>"] = "actions.select_tab",
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = "actions.close",
           ["<C-l>"] = "actions.refresh",
-          ["<BS>"] = "actions.parent",
+          ["-"] = "actions.parent",
           ["_"] = "actions.open_cwd",
           ["."] = "actions.cd",
           ["~"] = "actions.tcd",
@@ -83,30 +89,6 @@ return {
     end,
   },
   {
-    -- config = function()
-    "chrishrb/gx.nvim",
-    event = { "BufEnter" },
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
-    -- config = function()
-    --   require("gx").setup {
-    --     open_browser_app = "os_specific", -- specify your browser app; default for macOS is "open", Linux "xdg-open" and Windows "powershell.exe"
-    --     open_browser_args = { "--background" }, -- specify any arguments, such as --background for macOS' "open".
-    --     handlers = {
-    --       plugin = true, -- open plugin links in lua (e.g. packer, lazy, ..)
-    --       github = true, -- open github issues
-    --       brewfile = true, -- open Homebrew formulaes and casks
-    --       package_json = true, -- open dependencies from package.json
-    --       search = true, -- search the web/selection on the web if nothing else is found
-    --     },
-    --     handler_options = {
-    --       search_engine = "https://search.brave.com/search?q=", -- or you can pass in a custom search engine
-    --     },
-    --   }
-    -- end,
-  },
-
-  {
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup {
@@ -116,13 +98,27 @@ return {
           ---Add comment on the line below
           below = "gco",
           ---Add comment at the end of line
-          eol = "gcA", 
+          eol = "gcA",
         },
       }
     end,
   },
-
   { "tpope/vim-dadbod" },
+  {
+    "wojciech-kulik/xcodebuild.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "MunifTanjim/nui.nvim",
+      -- "nvim-tree/nvim-tree.lua", -- (optional) to manage project files
+      "stevearc/oil.nvim", -- (optional) to manage project files
+      -- "nvim-treesitter/nvim-treesitter", -- (optional) for Quick tests support (required Swift parser)
+    },
+    config = function()
+      require("xcodebuild").setup {
+        -- put some options here or leave it empty to use default settings
+      }
+    end,
+  },
   {
     "kristijanhusak/vim-dadbod-ui",
     cmd = {

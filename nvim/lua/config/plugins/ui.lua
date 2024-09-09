@@ -5,86 +5,6 @@ return {
   },
   { "nvim-pack/nvim-spectre", cmd = "Spectre" }, -- sophisticated search and replace tool
   {
-    "kevinhwang91/nvim-bqf",
-    ft = "qf",
-    config = function()
-      vim.cmd [[
-	    hi BqfPreviewBorder guifg=#3e8e2d ctermfg=71
-	    hi BqfPreviewTitle guifg=#3e8e2d ctermfg=71
-	    hi BqfPreviewThumb guibg=#3e8e2d ctermbg=71
-	    hi link BqfPreviewRange Search
-	]]
-
-      require("bqf").setup {
-        auto_enable = true,
-        auto_resize_height = true, -- highly recommended enable
-        preview = {
-          auto_preview = true,
-          win_height = 12,
-          show_scroll_bar = true,
-          win_vheight = 12,
-          delay_syntax = 80,
-          winblend = 12,
-          wrap = false,
-          buf_label = true,
-          border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
-          show_title = false,
-          should_preview_cb = function(bufnr, qwinid)
-            local ret = true
-            local bufname = vim.api.nvim_buf_get_name(bufnr)
-            local fsize = vim.fn.getfsize(bufname)
-            if fsize > 100 * 1024 then
-              -- skip file size greater than 100k
-              ret = false
-            elseif bufname:match "^fugitive://" then
-              -- skip fugitive buffer
-              ret = false
-            end
-            return ret
-          end,
-        },
-        -- make `drop` and `tab drop` to become preferred
-        func_map = {
-          open = "o",
-          openc = "<CR>",
-          drop = "O",
-          split = "<C-x>",
-          vsplit = "<C-v>",
-          tab = "t",
-          tabb = "T",
-          ptoggleitem = "p",
-          ptoggleauto = "P",
-          pscrollup = "<C-b>",
-          pscrolldown = "<C-f>",
-          pscrollorig = "zo",
-          prevfile = "<C-p>",
-          nextfile = "<C-n>",
-          prevhist = "<",
-          nexthist = ">",
-          lastleave = [['"]],
-          stoggleup = "<S-Tab>",
-          stoggledown = "<Tab>",
-          stogglevm = "<Tab>",
-          stogglebuf = [['<Tab>]],
-          sclear = "z<Tab>",
-          filter = "zn",
-          filterr = "zN",
-          fzffilter = "zf",
-          tabdrop = "<C-t>",
-          -- set to empty string to disable
-          tabc = "",
-          ptogglemode = "z,",
-        },
-        filter = {
-          fzf = {
-            action_for = { ["ctrl-s"] = "split", ["ctrl-t"] = "tab drop" },
-            extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
-          },
-        },
-      }
-    end,
-  }, -- Quickfix window with preview
-  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
@@ -95,6 +15,105 @@ return {
       registers = true,
     } },
   },
+  {
+    "https://gitlab.com/yorickpeterse/nvim-window.git",
+    config = function()
+      require("nvim-window").setup {
+        -- The characters available for hinting windows.
+        chars = {
+          "a",
+          "d",
+          "f",
+          "g",
+          "h",
+          "j",
+          "k",
+          "l",
+          "s",
+        },
+
+        -- A group to use for overwriting the Normal highlight group in the floating
+        -- window. This can be used to change the background color.
+        normal_hl = "Normal",
+
+        -- The highlight group to apply to the line that contains the hint characters.
+        -- This is used to make them stand out more.
+        hint_hl = "Bold",
+
+        -- The border style to use for the floating window.
+        border = "single",
+      }
+    end,
+  },
+
+  { "MunifTanjim/nui.nvim" },
+  { "vijaymarupudi/nvim-fzf" },
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      -- calling `setup` is optional for customization
+      require("fzf-lua").setup {}
+    end,
+  },
+
+  {
+    "stevearc/dressing.nvim", -- optional for vim.ui.select
+    config = function()
+      require("dressing").setup { -- Options go here. See :h dressing-options for more info.
+        select = {
+          get_config = function(opts)
+		  -- mason ui for serach  
+            if opts.kind == "mason.ui.language-filter" then
+              return {
+                backend = "telescope",
+              }
+            end
+            if opts.kind == "filetyper" then
+              return {
+                backend = "fzf_lua",
+                nui = {
+                  max_width = 40,
+                },
+              }
+            end
+          end,
+        },
+      }
+    end,
+  },
+  -- {
+  --   "nvim-telescope/telescope-ui-select.nvim",
+  --   config = function()
+  --     require("telescope").setup {
+  --       extensions = {
+  --         ["ui-select"] = {
+  --           require("telescope.themes").get_dropdown {
+  --             -- even more opts
+  --           },
+  --
+  --           -- pseudo code / specification for writing custom displays, like the one
+  --           -- for "codeactions"
+  --           -- specific_opts = {
+  --           --   [kind] = {
+  --           --     make_indexed = function(items) -> indexed_items, width,
+  --           --     make_displayer = function(widths) -> displayer
+  --           --     make_display = function(displayer) -> function(e)
+  --           --     make_ordinal = function(e) -> string
+  --           --   },
+  --           --   -- for example to disable the custom builtin "codeactions" display
+  --           --      do the following
+  --           --   codeactions = false,
+  --           -- }
+  --         },
+  --       },
+  --     }
+  --     -- To get ui-select loaded and working with telescope, you need to call
+  --     -- load_extension, somewhere after setup function:
+  --     require("telescope").load_extension "ui-select"
+  --   end,
+  -- },
   {
     "nvim-tree/nvim-web-devicons",
     event = "VeryLazy",
@@ -150,7 +169,7 @@ return {
           },
           TODO = { icon = " ", color = "info" },
           HACK = { icon = " ", color = "error" },
-          WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+          WARN = { icon = " ", color = "warning", alt = { "WARNING" } },
           PERF = { icon = " ", color = "warning", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
           NOTE = { icon = "", color = "hint", alt = { "INFO" } },
           TEST = { icon = "󰂖 ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
@@ -164,6 +183,17 @@ return {
         -- * before: highlights before the keyword (typically comment characters)
         -- * keyword: highlights of the keyword
         -- * after: highlights after the keyword (todo text)
+	--
+	-- INFO: 
+	-- FIX: 
+	-- TODO: 
+	-- PERF: 
+	-- TEST: 
+	-- WARN:
+	--  BUG:  sdasdfasfa
+	--  HACK: 
+	--  NOTE: 
+	--
         highlight = {
           multiline = true, -- enable multine todo comments
           multiline_pattern = "^.", -- lua pattern to match the next multiline from the start of the matched keyword
@@ -179,9 +209,9 @@ return {
         -- list of named colors where we try to extract the guifg from the
         -- list of highlight groups or use the hex color if hl not found as a fallback
         colors = {
-          error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+          error = { "#DC2626","DiagnosticError", "ErrorMsg"  },
           warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
-          info = { "DiagnosticInfo", "#2563EB" },
+          info = { "#DC2626","DiagnosticInfo"  },
           hint = { "DiagnosticHint", "#10B981" },
           default = { "Identifier", "#7C3AED" },
           test = { "Identifier", "#FF00FF" },
@@ -197,8 +227,8 @@ return {
           },
           -- regex that will be used to match keywords.
           -- don't replace the (KEYWORDS) placeholder
-          pattern = [[\b(KEYWORDS):]], -- ripgrep regex
-          -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+          -- pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+          pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
         },
       },
     },

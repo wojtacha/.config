@@ -1,14 +1,28 @@
-local all_cmp_filetypes = { "lua", "dart","go", "swift", "ruby", "rust" }
+local all_cmp_filetypes = { "lua", "dart", "go", "swift", "ruby", "rust" }
+
 return {
+  -- TODO:  check if cmp needs to be there  and remove lsp zero
   {
     "VonHeikemen/lsp-zero.nvim",
     branch = "v2.x",
     dependencies = {
       -- LSP Support
       { "neovim/nvim-lspconfig" }, -- Required
+
       { -- Optional
         "williamboman/mason.nvim",
-        config = function() require("mason").setup() end,
+        config = function()
+          require("mason").setup {
+            ui = {
+              border = "double",
+              icons = {
+                package_installed = "✓",
+                package_pending = "➜",
+                package_uninstalled = "✗",
+              },
+            },
+          }
+        end,
       },
       { "williamboman/mason-lspconfig.nvim" }, -- Optional
       -- Autocompletion
@@ -25,17 +39,15 @@ return {
     },
   },
 
-  { "mhartington/formatter.nvim", cmd = "Format" },
-
-  { "mfussenegger/nvim-dap" },
-
   { "mfussenegger/nvim-lint" },
 
-  { "mfussenegger/nvim-jdtls" },
+  -- TODO: I Want to review those
+  --
+  -- { "mfussenegger/nvim-jdtls" },
+  --
+  -- { "ms-jpq/coq_nvim", branch = "coq", lazy = true },
 
-  { "RRethy/vim-illuminate", event = "VeryLazy" }, -- Vim plugin for automatically highlighting other uses of the word under the cursor
-  { "ms-jpq/coq_nvim", branch = "coq", lazy = true },
-
+  -- TODO: check deeply how that works
   {
     "ray-x/go.nvim",
     dependencies = { -- optional packages
@@ -48,51 +60,101 @@ return {
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
-  { "charlespascoe/vim-go-syntax", ft = { "go", "gomod" } },
+
+  {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
 
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        "<leader>cf",
+        function() require("conform").format { async = true } end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
+    -- This will provide type hinting with LuaLS
+    ---@module "conform"
+    ---@type conform.setupOpts
     opts = {
+      -- Define your formatters
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "isort", "black" },
-        swift = { { "swiftformat", "swift_format" } },
-        ruby = { "rubocop" },
-        css = { { "prettierd", "prettier" } },
-        typescriptreact = { { "prettierd", "prettier" } },
-        javascript = { { "prettierd", "prettier" } },
-        javascriptreact = { { "prettierd", "prettier" } },
-        ["javascript.jsx"] = { { "prettierd", "prettier" } },
-        typescript = { { "prettierd", "prettier" } },
-        ["typescript.tsx"] = { { "prettierd", "prettier" } },
-        sh = { "shellcheck", "shfmt" },
-        zsh = { "prettier" },
-        json = { "fixjson" },
-        xml = { "xmllint" },
-        ["_"] = { "trim_whitespace" },
+        python = function(bufnr)
+          if require("conform").get_formatter_info("ruff_format", bufnr).available then
+            return { "ruff_format" }
+          else
+            return { "isort", "black" }
+          end
+        end,
+        -- typescript = { "biome", stop_after_first = true },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
       },
+      -- Set default options
+      default_format_opts = {
+        lsp_format = "fallback",
+      },
+      -- Set up format-on-save
+      format_on_save = { timeout_ms = 500 },
+      -- Customize formatters
       formatters = {
         shfmt = {
           prepend_args = { "-i", "2" },
         },
       },
-      -- Set up format-on-save
-      -- format_on_save = { timeout_ms = 500, lsp_fallback = true },
-      -- Customize formatters
     },
-    -- init = function()
-    --   -- If you want the formatexpr, here is the place to set it
-    --   vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    -- end,
+    init = function()
+      -- If you want the formatexpr, here is the place to set it
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
   },
+
   {
     "akinsho/flutter-tools.nvim",
     lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
+      -- "stevearc/dressing.nvim", -- optional for vim.ui.select
     },
     config = function()
       local lsp_zero = require "lsp-zero"
@@ -104,9 +166,57 @@ return {
       }
     end,
   },
+
   {
     "sourcegraph/sg.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     config = function() require("sg").setup {} end,
+  },
+
+  {
+    "nomnivore/ollama.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- All the user commands added by the plugin
+    cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
+    keys = {
+      -- Sample keybind for prompt menu. Note that the <c-u> is important for selections to work properly.
+      {
+        "<leader>oo",
+        function() require("ollama").prompt() end,
+        desc = "ollama prompt",
+        mode = { "n", "v" },
+      },
+      -- Sample keybind for direct prompting. Note that the <c-u> is important for selections to work properly.
+      {
+        "<leader>oG",
+        function() require("ollama").prompt "Generate_Code" end,
+        desc = "ollama Generate Code",
+        mode = { "n", "v" },
+      },
+    },
+
+    ---@type Ollama.Config
+    opts = {
+      model = "mistral",
+      url = "http://127.0.0.1:11434",
+      -- prompts = require "ollama.prompts",
+      serve = {
+        on_start = false,
+        command = "ollama",
+        args = { "serve" },
+        stop_command = "pkill",
+        stop_args = { "-SIGTERM", "ollama" },
+      },
+    },
+    prompts = {
+      Sample_Prompt = {
+        prompt = "This is a sample prompt that receives $input and $sel(ection), among others.",
+        input_label = "> ",
+        model = "mistral",
+        action = "display",
+      },
+    },
   },
 }
